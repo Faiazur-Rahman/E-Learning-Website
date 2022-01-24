@@ -1,0 +1,98 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+
+<!-- Name: <input type="text" name="name">
+Password: <input type="password" name="password">
+
+<input type="submit" value="login" name="login"/> 
+{% if messages %}
+{% for message in messages %}
+   <h2> {{message}}</h2>
+{% endfor %}
+{% endif %}
+</form> 
+
+Dont have a account? <a href="register">Register</a> -->
+<head>
+   <!--
+     This is the page head - it contains info the browser uses to display the page
+     You won't see what's in the head in the page
+     Scroll down to the body element for the page content
+   -->
+
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <link rel="icon" href="https://glitch.com/favicon.ico" />
+
+   <!-- 
+     This is an HTML comment
+     You can write text in a comment and the content won't be visible in the page
+   -->
+
+   <title>Hello World!</title>
+
+   <!-- Meta tags for SEO and social sharing -->
+   <link rel="canonical" href="https://glitch-hello-website.glitch.me/" />
+   <meta name="description" content="A simple website, built with Glitch. Remix it to get your own." />
+   <meta name="robots" content="index,follow" />
+   <meta property="og:title" content="Hello World!" />
+   <meta property="og:type" content="article" />
+   <meta property="og:url" content="https://glitch-hello-website.glitch.me/" />
+   <meta property="og:description" content="A simple website, built with Glitch. Remix it to get your own." />
+   <meta property="og:image"
+       content="https://cdn.glitch.com/605e2a51-d45f-4d87-a285-9410ad350515%2Fhello-website-social.png?v=1616712748147" />
+   <meta name="twitter:card" content="summary" />
+
+   <!-- Import the webpage's stylesheet -->
+   <link rel="stylesheet" href="{% static '/loginStyle.css' %}" />
+
+   <!-- Import the webpage's javascript file -->
+   <script src="{% static '/script.js' %}" defer></script>
+</head>
+
+<body>
+   <section class="login">
+       <div class="login-form">
+           <div class="login-form-top">
+               <h1>
+                   Sign In
+               </h1>
+               <p>
+                   Don't have an account? <a href="register">Register here</a>
+               </p>
+
+           </div>
+           <form method="POST" action="login">
+               {% csrf_token %}
+               {{ form.as_p }}
+               <label for="aaaa">Name</label>
+               <input type="text" id="aaaa" name="name" placeholder="Enter your name here" required></br></br>
+               <label for="bbbb">Gmail ID</label>
+               <input type="email" id="bbbb" name="email" placeholder="Enter your gmail here" required></br></br>
+               <label for="cccc">Password</label>
+               <input type="password" id="cccc" name="password" placeholder="Enter your password here" required>
+               </br>
+               </br>
+
+               <input type="checkbox" id="dddd" name="dddd" value="true">
+               <lebel>By signing up you agree to receive updates and special offers.</lebel></br></br></br>
+
+               <input type="submit" value="Login">
+               {% if messages %}
+               {% for message in messages %}
+               <h3> {{message}}</h3>
+               {% endfor %}
+               {% endif %}
+           </form>
+
+       </div>
+
+       <div class="login-image">
+           <img src="https://cdn.glitch.me/9d5ac074-e51d-42af-b36b-eabca61fd889/img.png?v=1639911440789" />
+
+       </div>
+
+   </section>
+</body>
+{% endblock%}

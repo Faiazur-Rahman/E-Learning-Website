@@ -1,0 +1,194 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+<!-- <h1>{{name}}!!!</h1>
+
+<form method="POST" action="register">
+    {% csrf_token %}
+    {{ form.as_p }}
+Enter name:=<input type="text" name="name" required><br>
+ Enter username:=<input type="text" name="username" ><br> -->
+<!-- Enter email:=<input type="text" name="email" required><br>
+Enter password:=<input type="password" name="password" required><br> -->
+<!-- <input type="submit" value="Submit"/> -->
+<!-- <input type="submit" value="Register" name="register"/>
+
+{% if messages %}
+{% for message in messages %}
+   <h2> {{message}}</h2>
+{% endfor %}
+{% endif %}
+</form> -->
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="https://glitch.com/favicon.ico" />
+    <title>Register</title>
+
+    <!-- Meta tags for SEO and social sharing -->
+    <meta
+      name="description"
+      content="A simple website, built with Glitch. Remix it to get your own."
+    />
+    <meta name="robots" content="index,follow" />
+    <meta property="og:title" content="Hello World!" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://glitch-hello-website.glitch.me/" />
+
+    <!-- Import the webpage's stylesheet -->
+    <link rel="stylesheet" href="{% static '/registerStyle.css' %}" />
+    <script src="{% static '/script.js' %}" defer></script>
+
+  </head>
+  <body>
+    <section class="register">
+      <div class="register-wrapper">
+        <h1>
+          REGISTER NEW ACCOUNT
+        </h1>
+        <div class="register-form">
+          <ul class="register-form-label">
+            <li>
+              <img
+                src="https://cdn.glitch.me/9070e963-0bdb-499e-b761-28f779cab7a1/name1.svg?v=1639997378808"
+              />
+              <p>
+                Name
+              </p>
+            </li>
+            <li>
+              <img
+                src="https://cdn.glitch.me/9070e963-0bdb-499e-b761-28f779cab7a1/phone2.svg?v=1639997386069"
+              />
+              <p>
+                Phone Number
+              </p>
+            </li>
+            <li>
+              <img
+                src="https://cdn.glitch.me/9070e963-0bdb-499e-b761-28f779cab7a1/gmail3.svg?v=1639997398602"
+              />
+              <p>
+                Gmail ID
+              </p>
+            </li>
+            <li>
+              <img
+                src="https://cdn.glitch.me/9070e963-0bdb-499e-b761-28f779cab7a1/location4.svg?v=1639997401839"
+              />
+              <p>
+                Present Add
+              </p>
+            </li>
+            <li>
+              <p style="padding-left: 40px;">
+                Permanent Add
+              </p>
+            </li>
+            <li>
+              <img
+                src="https://cdn.glitch.me/9070e963-0bdb-499e-b761-28f779cab7a1/nid5.svg?v=1639997456723"
+              />
+              <p>
+                NID Number
+              </p>
+            </li>
+            <li>
+              <img
+                src="https://cdn.glitch.me/9070e963-0bdb-499e-b761-28f779cab7a1/password5.svg?v=1639997407564"
+              />
+              <p>
+                Password
+              </p>
+            </li>
+            <li>
+              <p style="padding-left: 37px;">
+                Confirm Password
+              </p>
+            </li>
+          </ul>
+          <form method="POST" action="register" >
+              {% csrf_token %}
+             {{ form.as_p }}
+            <input
+              type="text"
+              id="a"
+              name="name"
+              placeholder="Enter name here"
+              required
+            />
+            <input
+              type="number"
+              id="b"
+              name="phone"
+              placeholder="Enter phone number here"
+              required
+            />
+            <input
+            autocomplete="false"
+              type="email"
+              id="c"
+              name="email"
+              placeholder="Enter your gmail here"
+              required
+            />
+            <input
+              type="text"
+              id="d"
+              name="perAddress"
+              placeholder="Enter your Pre,Add and district also"
+              required
+            />
+            <input
+              type="text"
+              id="e"
+              name="currAddress"
+              placeholder="Enter your full add here"
+              required
+            />
+            <input
+              type="number"
+              id="f"
+              name="NID"
+              placeholder="Enter your NID num"
+              required
+            />
+            <input
+              type="password"
+              id="g"
+              name="password1"
+              placeholder="Enter your password here"
+              required
+            />
+            <input
+              type="password"
+              id="h"
+              name="password2"
+              placeholder="Enter your password here"
+              required
+            />
+            <div>
+              <input
+                class="register-form-submit btn"
+                type="submit"
+                value="Rgister"
+              />
+              <button class="register-form-back btn" onclick="history.back()">
+                Back
+              </button>
+            </div>
+          </form>
+          
+        </div>
+        {% if messages %}
+               {% for message in messages %}
+               <h5> {{message}}</h5>
+               {% endfor %}
+               {% endif %}
+      </div>
+      
+    </section>
+    
+  </body>
+{% endblock%}

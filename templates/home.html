@@ -1,0 +1,242 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="https://glitch.com/favicon.ico" />
+    <title>KrishiBari</title>
+
+    <!-- Meta tags for SEO and social sharing -->
+    <meta name="description" content="This is Krishi Bari website" />
+    <meta name="robots" content="index,follow" />
+    <meta property="og:title" content="Krishi Bari" />
+
+    <!-- Import the webpage's stylesheet -->
+    <link rel="stylesheet" href="{% static '/style.css' %}" />
+</head>
+<!--
+      Navigation Section
+    -->
+<body>
+    <nav class="nav" >
+        <div class="container">
+          <div class="nav-wrapper">
+            <a href="/">
+              <img
+                class="nav-logo"
+                src="https://cdn.glitch.me/3c6bcfa3-8eea-40b8-8a85-8d1127453646/logo.png?v=1639474113782"
+                alt="KrishiBari"
+              />
+            </a>
+            <div class="nav-link">
+              <a href="#">Home</a>
+              {% if user.is_authenticated %}
+                <a href='#'>Courses</a>
+              {% endif %}
+              <a href="#">Events</a>
+              <a href="#">Contact</a>
+              {% if  user.is_authenticated %}
+                  <a href='profile'>{{user.name}}</a>
+                  <a href='logout'>Logout</a>
+                  {% else %}
+                  <a href='login'> Login </a>
+                  {% endif %}
+            </div>
+          </div>
+        </div>
+      </nav>
+  
+      <!--
+        Hero Section
+      -->
+  
+      <section class="hero">
+        <!-- Background Section for Hero -->
+        <img
+          class="hero-background"
+          src="https://cdn.glitch.me/3c6bcfa3-8eea-40b8-8a85-8d1127453646/hero-back.svg?v=1639479277468"
+        />
+        <!-- Hero -->
+        <div class="container">
+          <div class="hero-wrapper">
+            <div class="hero-text">
+              <h1>
+                Make Your Life Green
+              </h1>
+              <p>
+                আমাদের লক্ষ্য, আপনাকে আপনার নিজের চেষ্টা এবং পরিশ্রমের মাধ্যমে
+                সাবলম্বি করে তোলা। যেন আমরা আমাদের ঘরে থেকে আমাদের পরিবার এবং
+                নিজের আর্থিক সমস্যার সমাধান করতে পারি।পরিশ্রম আপনার সব সময় পাশে
+                থেকে পথ দেখাবো আমরা।
+              </p>
+              <a href="#" class="btn">সফল উদ্দোক্তা</a>
+            </div>
+            <ul class="hero-picture">
+              <li class="hero-picture-dots">
+                <img
+                  src="https://cdn.glitch.me/3c6bcfa3-8eea-40b8-8a85-8d1127453646/Dot-circle.png?v=1639642929891"
+                />
+              </li>
+              <li class="hero-picture-images image-one">
+                <a
+                  ><img
+                    src="https://cdn.glitch.me/3c6bcfa3-8eea-40b8-8a85-8d1127453646/hero-001.png?v=1639477850812"
+                /></a>
+              </li>
+              <li class="hero-picture-images image-two">
+                <a
+                  ><img
+                    src="https://cdn.glitch.me/3c6bcfa3-8eea-40b8-8a85-8d1127453646/hero-002.png?v=1639477851384"
+                /></a>
+              </li>
+              <li class="hero-picture-images image-three">
+                <a
+                  ><img
+                    src="https://cdn.glitch.me/3c6bcfa3-8eea-40b8-8a85-8d1127453646/hero-003.png?v=1639477850812"
+                /></a>
+              </li>
+              <li class="hero-picture-images image-four">
+                <a
+                  ><img
+                    src="https://cdn.glitch.me/3c6bcfa3-8eea-40b8-8a85-8d1127453646/hero-004.png?v=1639477850812"
+                /></a>
+              </li>
+              <li class="hero-picture-images image-five">
+                <a
+                  ><img
+                    src="https://cdn.glitch.me/3c6bcfa3-8eea-40b8-8a85-8d1127453646/hero-005.png?v=1639477850812"
+                /></a>
+              </li>
+              <li class="hero-picture-images image-six">
+                <a
+                  ><img
+                    src="https://cdn.glitch.me/3c6bcfa3-8eea-40b8-8a85-8d1127453646/hero-006.png?v=1639477850812"
+                /></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+      </section>
+      <div class="aParent">
+        <div class="videoClass" align="left">
+          {% for x in video %}
+          <video class="video-fluid" controls autoplay muted>
+            <source src="{{x.video.url}}" type="video/mp4" />
+          </video>
+          {% endfor%}
+        </div>
+        <div class="videoDes">
+            Agro based learning website. <br>
+            Learn about foreign fruits,<br> how these fruits are planted and how to become a great farmer.
+        </div>
+      </div>
+      
+      <footer>
+        <div class="container">
+          <div class="footer-top">
+            <div class="footer-top-about">
+              <h3>
+                About Us
+              </h3>
+              <p>
+                Our goal is to give financial stability to our users. We want to
+                make a big family for that reason we will give all the Technical
+                support,partnership,workshop,internship and Marketplace.
+              </p>
+            </div>
+            <div class="footer-top-help">
+              <h3>
+                Help
+              </h3>
+              <ul>
+                <li>
+                  Contact
+                </li>
+                <li>
+                  Upcoming
+                </li>
+                <li>
+                  FAQ
+                </li>
+                <li>
+                  Request
+                </li>
+              </ul>
+            </div>
+            <div class="footer-top-contact">
+              <h3>
+                Contact
+              </h3>
+  
+              <ul>
+                <li>
+                  <a href="mailto:krishibari@gmail.com">
+                    <img
+                      src="https://cdn.glitch.me/3c6bcfa3-8eea-40b8-8a85-8d1127453646/mail.icon.svg?v=1639736747828"
+                    />
+                    <h4>
+                      krishibari@gmail.com
+                    </h4>
+                  </a>
+                </li>
+  
+                <li>
+                  <a href="tel: 01***********">
+                    <img
+                      src="https://cdn.glitch.me/3c6bcfa3-8eea-40b8-8a85-8d1127453646/whats.icon.svg?v=1639736689945"
+                    />
+                    <h4>
+                      01***********(Help Center)
+                    </h4>
+                  </a>
+                </li>
+                <a> </a>
+                <li>
+                  <img
+                    src="https://cdn.glitch.me/3c6bcfa3-8eea-40b8-8a85-8d1127453646/face.icon.svg?v=1639736675647"
+                  />
+                  <h4>
+                    Join our facebook group
+                  </h4>
+                </li>
+                <li>
+                  <img
+                    src="https://cdn.glitch.me/3c6bcfa3-8eea-40b8-8a85-8d1127453646/youtube.icon.svg?v=1639736703206"
+                  />
+                  <h4>
+                    Subscribe our youtube channel
+                  </h4>
+                </li>
+                <li>
+                  <img
+                    src="https://cdn.glitch.me/3c6bcfa3-8eea-40b8-8a85-8d1127453646/inst.icon.svg?v=1639736661920"
+                  />
+                  <h4>
+                    Follow us on Instragram
+                  </h4>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            Copyright © Krishihouse.com
+          </div>
+        </div>
+      </footer>
+  
+      <!-- Import the webpage's javascript file -->
+      <script src="/script.js" defer></script>
+<!-- <form action="" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Login" name="login"/>
+    <input type="submit" value="Register" name="register">
+</form>
+{% if messages %}
+{% for message in messages %}
+   <h2> {{message}}</h2>
+{% endfor %} -->
+<!-- {% endif %} -->
+</body>
+{% endblock%}
