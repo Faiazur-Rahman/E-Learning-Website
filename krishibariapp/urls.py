@@ -15,6 +15,7 @@ urlpatterns=[
     path('profile',views.profile),
     path('logout',views.log_out),
     path('register',views.insertrecord),
+    path('adminLogin',views.subadmin),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

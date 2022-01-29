@@ -5,7 +5,16 @@ from .models import Dbtable
 from django.contrib import messages
 from .models import videoTable
 # Create your views here.
-
+def subadmin(request):
+    if request.method=='POST':
+        email =request.POST['email']
+        password = request.POST['password']
+        user = authenticate(email=email, password=password)
+        #type_obj = user.objects.get(user=user)
+        if user :
+            login(request,user)
+            return render(request,'subAdmin.html')
+    return render(request,'adminLogin.html')
 def homepage(request):
     # if request.method=='POST':
     #     if request.POST.get('login'):
@@ -60,7 +69,7 @@ def log_in(request):
         email =request.POST['email']
         password = request.POST['password']
         
-        user = authenticate(email=email,name=name, password=password)
+        user = authenticate(email=email, password=password)
         if user:
             login(request, user)
             #messages.success(request,'login successful')
