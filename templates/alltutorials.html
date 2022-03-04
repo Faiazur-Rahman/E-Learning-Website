@@ -1,0 +1,102 @@
+{% extends 'base.html'%}
+{% load static %}
+{% load humanize %}
+{% load extras %}
+{% block content %}
+{% include 'head.html'%}
+{% include 'navbar.html'%}
+
+<body>
+<div class="side-body" style="height: 580px;">
+    <div class="row">
+        <div id="mySidenav" class="sidenav" >
+            <!-- <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a> -->
+            {% for x in all %}
+            {% if x.pk == post.pk %}
+            <a style="background-color: green; color:white;" href="{{x.pk}}">{{x.title}}</a>
+            {% else %}
+            <a href="{{x.pk}}">{{x.title}}</a>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="tutorial-body"
+            style=" width:980px;height:580px;padding-left: 50px;  padding-top:50px;  overflow-y:scroll;">
+
+            <h2>{{post.title}}</h2>
+            <p class="text-muted">By {{post.auther.name}}</p>
+            <p style="font-size: 20px; width: 600px;">
+                {{post.article|safe}}
+            </p>
+            <h2> Comments ({{comments.count}})</h2>
+            <div class="my-2">
+                {% if user.is_authenticated %}
+                <form action="addcomment" method="POST">
+                    {% csrf_token %}
+                    <input type="text" name="comment" placeholder="enter here">
+                    <input type="hidden" name="postSno" value="{{post.pk}}">
+                    <input type="hidden" name="parentSno" value="">
+                    <input type="submit" value="Submit">
+                </form>
+                {% endif %}
+            </div>
+            <div class="my-3">
+                {% if comments.all%}
+                {% for comment in comments %}
+                <div class="my-2">
+                    <b> {{comment.user.name}} </b> <span class="badge badge-secondary ">{{comment.timestamp | naturaltime}}</span>
+                    <div> {{comment.comment}} </div>
+                    <a class="" style="cursor: pointer; color:green; text-decoration:underline;" data-toggle="collapse"
+                        data-target="#replyBox{{comment.pk}}" aria-expanded="false"
+                        aria-controls="replyBox{{comment.pk}}">
+                        Reply
+                    </a>
+                    <div class="collapse" id="replyBox{{comment.pk}}" style="width:500px;">
+                        <div class=" my-2">
+                            <form action="addcomment" method="POST">
+                                {% csrf_token %}
+                                <div class="row" style="padding-left: 20px;">
+                                    <div class="form-group ">
+                                        <input type="text" class="form-control" name="comment"
+                                            placeholder="Enter comment here">
+                                        <input type="hidden" name="parentSno" value="{{comment.pk}}">
+
+                                    </div>
+                                    <div style="padding-left: 5px;">
+                                        <input type="hidden" name="postSno" value="{{post.pk}}">
+                                        <button type="submit" class="btn "
+                                            style="background-color: green;color:white;">Reply</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="replies " style="padding-left: 30px;">
+                        {% for reply in replyDict|get_val:comment.pk %}
+                        <div class="my-2">
+                            <div class="">
+                                <div class="">
+                                    <b> {{reply.user.name}} </b> <span class="badge badge-secondary ">{{reply.timestamp|naturaltime}}</span>
+                                    <div>{{reply.comment}}</div>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <div>
+                        no comments
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    {% include 'footer.html'%}
+    {% include 'jslinks.html'%}
+    <script src="{% static 'script.js' %}"></script>
+</body>
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "subadmintemplates/layouts/base.html" %}
+
+{% block title %} Users {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="static/subadminstatic/assets/plugins/chart-morris/css/morris.css">
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="col-xl-10 col-md-6">
+    <div class="card Recent-Users">
+        <div class="card-header">
+            <h5>Users</h5>
+        </div>
+        <div class="card-block px-0 py-3">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="thead-light">
+                        <tr class="unread">
+                            <!-- <td><img class="rounded-circle" style="width:40px;" src="/static/assets/images/user/avatar-1.jpg" alt="activity-user"></td> -->
+                        
+                                <th scope="col" style="padding-left: 20px;">Name</th>
+                                <!-- <p class="m-0">Lorem Ipsum is simply…</p> -->
+                            
+                                <th scope="col">Phone</th>
+                                <!-- <p class="m-0">Lorem Ipsum is simply…</p> -->
+                            
+                                <th scope="col">Joined Date</th>
+                            
+                                <th scope="col" style="padding-left: 60px;">Action</th>
+                
+                            <!-- <td><a href="#!" class="label theme-bg2 text-white f-12">Deactivate</a><a href="#!" class="label theme-bg text-white f-12">Remove</a></td> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in user_list %}
+                            <tr class="unread">
+                                <!-- <td><img class="rounded-circle" style="width:40px;" src="/static/assets/images/user/avatar-1.jpg" alt="activity-user"></td> -->
+                                <td>
+                                    <h6 class="mb-1" style="padding-left: 10px;">{{user.name}}</h6>
+                                    <!-- <p class="m-0">Lorem Ipsum is simply…</p> -->
+                                </td>
+                                <td>
+                                    <h6 class="mb-1">{{user.phone}}</h6>
+                                    <!-- <p class="m-0">Lorem Ipsum is simply…</p> -->
+                                </td>
+                                <td>
+                                    <h6 class="text-muted"><i class="fas fa-circle text-c-green f-10 m-r-15"></i>{{user.date_joined}}</h6>
+                                </td>
+                                <td><a href="#!" class="label theme-bg2 text-white f-12">Deactivate</a><a href="#!" class="label theme-bg text-white f-12">Remove</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+    <script src="/static/assets/plugins/chart-morris/js/raphael.min.js"></script>
+    <script src="/static/assets/plugins/chart-morris/js/morris.min.js"></script>
+    <script src="/static/assets/js/pages/chart-morris-custom.js"></script>
+
+{% endblock javascripts %}

@@ -1,6 +1,12 @@
+from pyexpat import model
+from tokenize import blank_re
+from unicodedata import name
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
+from django.forms import CharField
+from ckeditor.fields import RichTextField
+from django.utils.timezone import now
 # Create your models here.
 class MyAccountManager(BaseUserManager):
     def create_user(self, email,name,phone,perAddress,currAddress,nid,password):
@@ -73,11 +79,49 @@ class Dbtable(AbstractBaseUser,PermissionsMixin):
 
     # For checking permissions. to keep it simple all admin have ALL permissons
     def has_perm(self, perm, obj=None):
-        return self.is_admin
+        return True
 
     # Does this user have permission to view this app? (ALWAYS YES FOR SIMPLICITY)
     def has_module_perms(self, app_label):
         return True
+    # @property
+    # def is_staff(self):
+    #     # Simplest possible answer: All admins are staff
+    #     return self.is_admin
 
 class videoTable(models.Model):
     video=models.FileField(upload_to="video/%y")
+
+class coursesList(models.Model):
+    course_name=models.CharField(max_length=100,unique=True)
+    active_state=models.BooleanField(default=False)
+    def __str__(self):
+        return self.course_name
+class allCourseVideos(models.Model):
+    name=models.ForeignKey(coursesList,on_delete=models.CASCADE)
+    caption=models.CharField(max_length=100)
+    video=models.FileField(upload_to="video/%y")
+    is_paid=models.BooleanField(default=False)
+    def __str__(self):
+        return self.caption
+
+class strawbarryVideoTable(models.Model):
+    caption=models.CharField(max_length=100)
+    video=models.FileField(upload_to="video/%y")
+    is_paid=models.BooleanField(default=False)
+    def __str__(self):
+        return self.caption
+
+class allArticles(models.Model):
+    title=models.CharField(max_length=255)
+    auther=models.ForeignKey(Dbtable,on_delete=models.CASCADE)
+    article=RichTextField(blank=True,null=True)
+    def __str__(self) :
+        return self.title +' | '+ str(self.auther.name)
+class articleComment(models.Model):
+    sno= models.AutoField(primary_key=True)
+    comment=models.TextField()
+    user=models.ForeignKey(Dbtable, on_delete=models.CASCADE)
+    post=models.ForeignKey(allArticles,related_name='comments', on_delete=models.CASCADE)
+    parent=models.ForeignKey('self',on_delete=models.CASCADE, null=True )
+    timestamp= models.DateTimeField(default=now)

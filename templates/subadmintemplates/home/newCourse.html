@@ -1,0 +1,58 @@
+{% extends "subadmintemplates/layouts/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="mt-5">
+    <div class="col-xl-10 col-md-10">
+        <div class="card Recent-Users">
+            <div class="card-header">
+                <h5>Add New Courses</h5>
+            </div>
+            <div class="card-block px-5 py-3">
+            
+            <form action="newCourses" method="POST" >
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.course_name|as_crispy_field  }}
+                    <input type="submit"  class="btn btn-primary" value="Add New">
+                    {% if messages %}
+                   {% for message in messages %}
+                   <h4> {{message}}</h4>
+                   {% endfor %}
+                   {% endif %}
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="col-xl-10 col-md-6">
+    <div class="card Recent-Users">
+        <div class="card-header">
+            <h5>All Courses</h5>
+            <span  class="badge badge-primary badge-pill">{{course_list.all|length}}</span>
+        </div>
+        <div class="card-block px-0 py-3">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <tbody>
+                        {% for course in course_list %}
+                            <tr class="unread">
+                                <!-- <td><img class="rounded-circle" style="width:40px;" src="/static/assets/images/user/avatar-1.jpg" alt="activity-user"></td> -->
+                                <td>
+                                    <h5 style="padding-left: 10px;">{{course.course_name}}</h5>
+                                    <!-- <p class="m-0">Lorem Ipsum is simply…</p> -->
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

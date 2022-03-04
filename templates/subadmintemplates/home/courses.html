@@ -1,0 +1,41 @@
+{% extends "subadmintemplates/layouts/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %} UI Badges {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+<link rel="stylesheet" href="static/subadminstatic/assets/plugins/chart-morris/css/morris.css">
+
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="mt-5">
+<div class="col-xl-10 col-md-10">
+    <div class="card Recent-Users">
+        <div class="card-header">
+            <h5>Strawberry</h5>
+        </div>
+        <div class="card-block px-5 py-3">
+        
+        <form action="courses" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.caption|as_crispy_field  }}
+                {{form.video|as_crispy_field }}
+                {{form.is_paid|as_crispy_field }}
+                <input type="submit"  class="btn btn-primary" value="Add New">
+                {% if messages %}
+               {% for message in messages %}
+               <h3> {{message}}</h3>
+               {% endfor %}
+               {% endif %}
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

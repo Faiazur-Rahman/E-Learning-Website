@@ -31,7 +31,7 @@ Dont have a account? <a href="register">Register</a> -->
    -->
 
    <title>Hello World!</title>
-
+   
    <!-- Meta tags for SEO and social sharing -->
    <link rel="canonical" href="https://glitch-hello-website.glitch.me/" />
    <meta name="description" content="A simple website, built with Glitch. Remix it to get your own." />
@@ -78,7 +78,8 @@ Dont have a account? <a href="register">Register</a> -->
                <input type="checkbox" id="dddd" name="dddd" value="true">
                <lebel>By signing up you agree to receive updates and special offers.</lebel></br></br></br>
 
-               <input type="submit" value="Login">
+        
+               <button class="btn btn-outline-green" type="submit" >Login</button>
                {% if messages %}
                {% for message in messages %}
                <h3> {{message}}</h3>

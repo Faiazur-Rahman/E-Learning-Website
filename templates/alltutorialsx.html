@@ -1,0 +1,32 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+{% include 'head.html'%}
+{% include 'navbar.html'%}
+
+<body>
+
+    <div class="row">
+        <div id="mySidenav" class="sidenav">
+            <!-- <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a> -->
+            {% for post in all %}
+            <a href="{% url 'showarticle' post.pk %}">{{post.title}}</a>
+            {% endfor %}
+            
+        </div>
+        <div class="tutorial-body" style=" width:980px;max-height:580px;float:right;padding-left: 50px;  padding-top:50px;  overflow-y:scroll;">
+            
+                <h2>{{article_1.title}}</h2>
+                <p class="text-muted">By {{article_1.auther.name}}</p>
+                <p style="font-size: 20px; width: 600px;">
+                    {{article_1.article}}
+                </p>
+        </div>
+    </div>
+
+
+    {% include 'jslinks.html'%}
+    <script src="{% static 'script.js' %}"></script>
+</body>
+{% include 'footer.html'%}
+{% endblock %}

@@ -1,0 +1,161 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+{% include 'head.html'%}
+{% include 'navbar.html'%}
+
+<body >
+    <section
+        style="background: linear-gradient(90deg, rgba(21,23,57,1) 0%, rgba(39,43,124,1) 100%, rgba(20,52,122,1) 100%);  padding-top:50px;padding-bottom:50px;">
+        <div class="container">
+            <div class="row card-columns">
+                <div style="color: white;">
+                    <h3>Self-Paced Courses</h3>
+                    <h6>
+                        Experience Self-paced learning with pre-recorded video lectures by <br>
+                        industry experts and handpicked problems for practice
+                    </h6>
+                </div>
+                <div class="search-container" style="padding-left:150px;">
+                    <form>
+                        <input class="rounded" type="text"
+                            style="padding-left:10px;height: 50px;width:250px; border:none;outline:none; "
+                            placeholder="Search.." name="search">
+                        <button type="submit"
+                            style="cursor: pointer;height: 50px; border:none;outline:none; background-color:green; color:white; margin-left:-7px;width:40px;"><i
+                                class="fa fa-search"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div style="text-align: center;padding-top: 20px;">
+            <div>
+                <h5>Featured Self-Paced Courses</h5>
+            </div>
+        </div>
+        <hr style="width:80px;height:2px;background-color:green;" />
+        <div class="container "
+            style="padding-bottom: 20px; padding-top: 20px; display:flex;align-items:center;justify-content:center;">
+            <div class="row">
+                <div class="col-md-4 cards-with-shadow">
+                    <div class="card " style="width: 15rem;height:23rem;">
+                        <img class="card-img-top" style="margin-left: -.5px;" src="/static/images/bg-4.jpg"
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text </p>
+                        </div>
+                        <a href="#"
+                            style="margin-left: -0.5px; background-color:green; width:100%;border-radius: 0 0 1em 1em;"
+                            class="btn btn-primary">Register <i class="fa fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 cards-with-shadow">
+                    <div class="card " style="width: 15rem;height:23rem;">
+                        <img class="card-img-top" style="margin-left: -.5px;" src="/static/images/bg-5.jpg"
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text </p>
+
+                        </div>
+
+                        <a href="#"
+                            style="margin-left: -0.5px; background-color:green; width:100%;border-radius: 0 0 1em 1em;"
+                            class="btn btn-primary">Register <i class="fa fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-3 cards-with-shadow">
+                    <div class="card " style="width: 15rem;height:23rem;">
+                        <img class="card-img-top" style="margin-left: -.5px;" src="/static/images/bg-6.jpg"
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text </p>
+
+                        </div>
+
+                        <a href="#"
+                            style="margin-left: -0.5px; background-color:green; width:100%;border-radius: 0 0 1em 1em;"
+                            class="btn btn-primary">Register <i class="fa fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <section style="padding-bottom:50px; padding-top:50px;">
+        <div class="container-fluid " style="padding-left: 23px;">
+            <ul class="nav  " >
+                <li class="nav-item ">
+                    <a class="nav-link " style="color: black; cursor:pointer;" id="freecourses" onclick="fORp(this.id)"
+                        data-sid="freecourses" type="button">Free Courses</a>
+                    <hr id="freecourses1" style="width:80px;height:2px;background-color:green;" />
+                </li>
+
+                <li class="nav-item ">
+                    <a class="nav-link tab-link " style="opacity:0.5;color: black; cursor:pointer;" id="paidcourses"
+                        onclick="fORp(this.id)" data-sid="paidcourses" type="button">Paid Courses</a>
+                    <hr id="paidcourses1" style="display:none;width:80px;height:2px;background-color:green;" />
+                </li>
+            </ul>
+        </div>
+        <hr style="width:95%;height:2px;background-color:green; " />
+        <div class="container active-demo cards-with-shadow" id="free-courses" style="padding-top:30px;">
+            <div class="card" style="width: 950px; padding-top:0; margin-top:-1px; margin-bottom:-1px;">
+                <div class="row">
+                    <img class="card-img" src="/static/images/bg-7.jpg" alt=""
+                        style=" width: 300px; margin-left:15px; height:fit-content; border-radius: 1em 0em 0em 1em;">
+                    <div class="card-body" style="text-align: left;">
+                        <div class="panel panel-default">
+                            <div class="panel-body">A Basic Panel</div>
+                        </div>
+                        <div style="max-width: 300px;">
+                            <h4 style="color: green;">
+                                Strawberry Crash Course
+                            </h4>
+
+                            Session by Emon
+
+                        </div>
+                        <div style=" position:absolute;right:20px;bottom:20px;width: 100px;height:30px;">
+                            <a href="#" style="background-color: green;border-radius: 1em 1em 1em 1em;"
+                                class="btn btn-primary">Register <i class="fa fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container inactive cards-with-shadow" id="paid-courses" style="padding-top:30px;">
+            <div class="card" style="width: 950px; padding-top:0; margin-top:-1px; margin-bottom:-1px;">
+                <div class="row">
+                    <img class="card-img" src="/static/images/bg-5.jpg" alt=""
+                        style=" width: 300px; margin-left:15px; height:fit-content; border-radius: 1em 0em 0em 1em;">
+                    <div class="card-body" style="text-align: left;">
+                        <div class="panel panel-default">
+                            <div class="panel-body">A Basic Panel</div>
+                        </div>
+                        <div style="max-width: 300px;">
+                            <h4 style="color: green;">
+                                Mashroom Crash Course
+                            </h4>
+
+                            Session by Aritra
+
+                        </div>
+                        <div style=" position:absolute;right:20px;bottom:20px;width: 100px;height:30px;">
+                            <a href="#" style="background-color: green;border-radius: 1em 1em 1em 1em;"
+                                class="btn btn-primary">Register <i class="fa fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% include 'footer.html'%}
+    <script src="{% static 'script.js' %}"></script>
+</body>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+    <h2>Strawberry</h2><br>
+    {% for x in video %}
+        <div class="mt-10 md-10">
+            <div class="embed-responsive embed-responsive-4by3">
+            <video class="video-fluid" controls >
+                <source src="{{x.video.url}}" type="video/mp4" />
+            </video>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock%}
