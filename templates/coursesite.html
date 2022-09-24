@@ -1,7 +1,6 @@
 {% extends 'base.html'%}
 {% load static %}
 {% block content %}
-{% include 'head.html'%}
 {% include 'navbar.html'%}
 
 <body >
@@ -23,7 +22,7 @@
                                         bulk
                                         of
                                         the card's content.</p>
-                                    <a href="#" class="btn btn-primary" style="width: 100%; color:black; border:none; background-color:white;">Explore</a>
+                                    <a href="{% url 'live-courses' %}" class="btn btn-primary" style="width: 100%; color:black; border:none; background-color:white;">Explore</a>
                                 </div>
                             </div>
                         </div>
@@ -55,7 +54,7 @@
         <div class="container" >
             <div style="padding-top:30px;">
                 <h4>My Courses</h4><br>
-                <h7>You haven't registered for any course yet.</h7>
+                <h6>You haven't registered for any course yet.</h6>
             </div>
         </div>
     </section>

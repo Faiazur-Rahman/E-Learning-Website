@@ -1,0 +1,208 @@
+{% extends 'instructor-base.html'%}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="buttons">
+    <div class="col-xl-10 col-md-6 ">
+        <div class="card Recent-Users cards-with-shadow">
+            <div class="card-header">
+                <h5>Course Name</h5>
+                <br>
+                <br>
+                <h3>{{course}}</h3>
+
+                <div style="display: inline; position: relative;float: right;">
+                    {% if not course.active_state %}
+                    <input type="button" id="btnid{{course.id}}" onclick="reply_click(this.id)" data-sid="{{course.id}}"
+                        class="btn btn-active-state"
+                        style="background-color: green; color:white;position: relative;float: right;" value="Enable">
+                    {% else %}
+                    <input type="button" id="btnid{{course.id}}" onclick="reply_click(this.id)" data-sid="{{course.id}}"
+                        class="btn btn-active-state"
+                        style="background-color: Red; color:white;position: relative;float: right;" value="Disable">
+                    {% endif %}
+
+                    <!-- <button id="btnid" class="btn buttons" data-sid="{{one_obj.id}}" >Enable</button> -->
+                </div>
+                {% if not course.active_state %}
+                <p id="statusbtnid{{course.id}}">
+                    This course is disabled.
+                </p>
+                {% else %}
+                <p id="statusbtnid{{course.id}}">
+                </p>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+    <div class="col-xl-10 col-md-6 mt-5">
+        <div class="card Recent-Users cards-with-shadow">
+            <div class="card-header">
+                <h5>Course Videos</h5>
+            </div>
+            <div class="card-block px-0 py-3">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <tbody>
+                            {% for x in course_vid %}
+                            <tr class="unread">
+                                <!-- <td><img class="rounded-circle" style="width:40px;" src="/static/assets/images/user/avatar-1.jpg" alt="activity-user"></td> -->
+                                <td>
+                                    <h5 style="padding-left: 10px;">{{x.caption}}</h5>
+                                    <!-- <div  style="display: inline; position: relative;float: right;" > -->
+                                </td>
+                                <td>
+                                    <div style="display: inline; position: relative;float: right; padding-right: 50px;">
+                                        <input style="background: red; color:white"
+                                            onclick="rep_click('cnt{{course.id}}','{{course_vid|length}}')"
+                                            type="button" class="btn-sm btn-del" data-cid="{{x.id}}" value="Delete">
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-10 col-md-6 mt-5">
+        <div class="card Recent-Users cards-with-shadow">
+            <div class="card-header">
+                <h5>Course attandees</h5>
+            </div>
+            <div class="card-block px-0 py-3">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <tbody>
+                            {% for x in course_vid %}
+                            <tr class="unread">
+                                <!-- <td><img class="rounded-circle" style="width:40px;" src="/static/assets/images/user/avatar-1.jpg" alt="activity-user"></td> -->
+                                <td>
+                                    <h5 style="padding-left: 10px;">{{x.caption}}</h5>
+                                    <!-- <div  style="display: inline; position: relative;float: right;" > -->
+                                </td>
+                                <td>
+                                    
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-10 col-md-6 mt-5">
+        <div class="card Recent-Users cards-with-shadow">
+            <div class="card-header">
+                <h5>Add video</h5>
+            </div>
+            <div class="card-block px-3 py-3">
+                <form action="{% url 'instructor_the_course' course.pk %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{ form.caption|as_crispy_field }}
+                        {{ form.video|as_crispy_field }}
+                        {{ form.is_paid|as_crispy_field }}
+                        
+                    </div>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2"
+                        data-whatever="@mdo">Add new</button>
+
+                    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+
+                                    <h5>Add new video to this course?</h5>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if messages %}
+                        {% for message in messages %}
+                        {% if message.tags %}
+                        <script>alert("{{ message }}")</script> {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+
+<script>
+    var cnt = 0, pre = 0;
+    function rep_click(id, obj) {
+        console.log(id);
+        let num = parseInt(obj);
+        if (pre != num) {
+            cnt = num;
+            pre = num;
+        }
+        cnt--;
+        document.getElementById(id).innerHTML = cnt;
+    }
+    function reply_click(id) {
+        var btn = document.getElementById(id);
+        var x = "status" + id;
+        var pt = document.getElementById(x);
+        //btn.value = window.getComputedValue(document.getElementById(id)).value;
+        if (btn.value == "Enable") {
+            btn.value = "Disable";
+            btn.style.background = 'Red';
+            document.getElementById(x).innerText = '';
+        } else {
+            btn.value = "Enable";
+            btn.style.background = 'Green';
+            document.getElementById(x).innerHTML = 'This course is disabled.';
+        }
+    }
+    //active status
+    $(".buttons").on("click", ".btn-active-state", function () {
+
+        let id = $(this).attr("data-sid");
+
+        mydata = { sid: id, 'csrfmiddlewaretoken': '{{ csrf_token }}' };
+        $.ajax({
+            url: "{% url 'activeState'%}",
+            method: "POST",
+            data: mydata,
+            'dataType': 'json',
+            success: function (data) {
+                console.log(data.status);
+            }
+        });
+    })
+
+    //delete a video
+    $(".buttons").on("click", ".btn-del", function () {
+        let id1 = $(this).attr("data-cid");
+        //console.log(id1);
+        //console.log(cid);
+        mydata = { cid: id1, 'csrfmiddlewaretoken': '{{ csrf_token }}' };
+        mythis = this;
+        $.ajax({
+            url: "{% url 'delVideo'%}",
+            method: "POST",
+            data: mydata,
+            'dataType': 'json',
+            success: function (data) {
+                if (data.status == 1) {
+                    $(mythis).closest("tr").fadeOut();
+                }
+            }
+        });
+    })
+</script>
+{% endblock js %}

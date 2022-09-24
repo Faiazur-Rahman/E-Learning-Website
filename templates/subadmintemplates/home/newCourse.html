@@ -9,19 +9,22 @@
                 <h5>Add New Courses</h5>
             </div>
             <div class="card-block px-5 py-3">
-            
-            <form action="newCourses" method="POST" >
-                {% csrf_token %}
                 <div class="form-group">
+            <form action="newCourses" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                
                     {{ form.course_name|as_crispy_field  }}
+                    {{ form.image|as_crispy_field  }}
+                    {{ form.instructor|as_crispy_field  }}
                     <input type="submit"  class="btn btn-primary" value="Add New">
                     {% if messages %}
                    {% for message in messages %}
                    <h4> {{message}}</h4>
                    {% endfor %}
                    {% endif %}
-                </div>
+                
             </form>
+                </div>
             </div>
 
         </div>

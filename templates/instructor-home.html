@@ -1,0 +1,54 @@
+{% extends 'instructor-base.html'%}
+{% block content %}
+<div  >
+    <style>
+        .card{
+            width: 300px;
+        }
+    </style>
+<div class="row">
+    <div class="col-md-6 col-xl-4">
+        <div class="card" style="color:white;background-color: orange;height:100px;">
+            <div class="card-block">
+                <div class="container" style="padding-top: 10px;">
+                    <h6 style="font-size:20px;display: inline;" class="mb-4">Total Courses</h6>
+                </div>
+                <div style="padding-top: 18px;" class="row d-flex align-items-center">
+                    <div class="col-9">
+                        <h2 class="f-w-300 d-flex align-items-center m-b-0">{{user_cnt}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-4">
+        <div class="card daily-sales" style="color:white;background-color: rgb(129, 229, 129);height:100px;">
+            <div class="card-block">
+                <div class="container" style="padding-top: 10px;">
+                    <h6 style="font-size:20px;display: inline;" class="mb-4">Total Enrolls</h6>
+                </div>
+                <div style="padding-top: 18px;" class="row d-flex align-items-center">
+                    <div class="col-9">
+                        <h2 class="f-w-300 d-flex align-items-center m-b-0">{{courses}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-4">
+        <div class="card daily-sales" style="color:white;background-color: rgb(43, 172, 198);height:100px;">
+            <div class="card-block">
+                <div class="container" style="padding-top: 10px;">
+                    <h6 style="font-size:20px;display: inline;" class="mb-4">Contribution</h6>
+                </div>
+                <div style="padding-top: 18px;" class="row d-flex align-items-center">
+                    <div class="col-9">
+                        <h2 class="f-w-300 d-flex align-items-center m-b-0">{{tvid}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

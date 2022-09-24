@@ -1,0 +1,265 @@
+{% extends 'base.html'%}
+{% load static %}
+{% load humanize %}
+{% load extras %}
+{% block content %}
+{% include 'head.html'%}
+{% include 'navbar.html'%}
+
+<body>
+    <div class="side-body" style="height: 580px;">
+        <div class="row">
+            <div id="mySidenav" class="sidenav">
+                <!-- <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a> -->
+                <a href="{% url 'course-about' %}">Introduction</a>
+                {% for x in videos %}
+                <a href="{% url 'the-course' coursePk=course.pk pk=x.pk %}">{{x.caption}}</a>
+                {% endfor %}
+                <a style="background-color: green; color:white;"
+                    href="{% url 'course-test' coursePk=course.pk %}">Test</a>
+            </div>
+            <div class="tutorial-body"
+                style=" width:980px;height:580px;padding-left: 50px;  padding-top:50px;  overflow-y:scroll;">
+
+                <h2>Course tests on Mashrooms</h2>
+                <br>
+                <br>
+                <!-- Button trigger modal -->
+                <label for="startexam">
+                    <h4>{{exam.title}}</h4>
+                </label><br>
+                <button name="startexam" onclick="dissappare()" type="button" class="btn btn-primary" data-toggle="modal"
+                    data-target="#infoBeforeStart">
+                    Start exam
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="infoBeforeStart" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Test details</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="h5 mb-3">Are you sure you want to begin "<b>{{exam.title}}</b>"?</div>
+                                <div class="text-muted">
+                                    <ul>
+                                        <li>difficulty: <b>{{exam.difficulty}}</b></li>
+                                        <li>number of questions: <b>{{noOfQuestion}}</b></li>
+                                        <li>score to pass: <b>{{exam.required_score_to_pass}}</b></li>
+                                        <li>time: <b>{{exam.time}}</b></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button id="examstartsnow"  type="button" class="btn btn-primary" data-toggle="modal" data-target="#theExam" 
+                                data-dismiss="modal"  >
+                                    Start
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="theExam" style="overflow-y: scroll;" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalCenterTitle">Course Test</h5>
+                                <h4 id="timer"></h4>
+                                <button id="closeBtnModal2" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div  class="modal-body">
+                                <div class="question-div">
+                                <form id="quiz-form">
+                                    {% csrf_token %}
+                                    <div id="question-div">
+                                        {% for qus in questions %}
+                                        {% for q, ans in qus.items%}
+                                        <div class="mb-2">
+                                            <b>{{ q }}</b>
+                                        </div>
+                                        {% for a in ans %}
+                                        <div>
+                                            <input type="radio" class="ans" name="{{q}}" id="{{q}}-{{a}}" value="{{a}}">
+                                            <label for="{{q}}">{{a}}</label>
+                                        </div>
+                                        {% endfor %}
+                                        {% endfor %}
+                                        {% endfor %}
+                                    </div>
+                                    <button style="float:right;" id="submitExam" class="btn btn-success" type="submit">Submit</button>
+                                </form>
+                                </div>
+                                <div id="ans-div">
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="closeModal2" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'footer.html'%}
+    <script>
+        /*const time = 10;
+            time = time * 60;
+            const timer = document.getElementById('timer');
+        function myFunction() {
+            // will only come inside after the modal is shown
+            
+                alert('hi');
+                const minute = Math.floor(time / 60);
+                let second = time % 60;
+
+                second = second < 10 ? '0' + second : second;
+
+                timer.innerHTML = `${minute}:${second}`;
+                time--;
+          }*/
+          var countdownTimer;
+          var time='{{time}}';
+          time=time*60;
+          var seconds=time; //**change 120 for any number you want, it's the seconds **//
+         
+          function secondPassed() {
+            var minutes = Math.round((seconds - 30) / 60);
+            var remainingSeconds = seconds % 60;
+            if (remainingSeconds < 10) {
+                remainingSeconds = "0" + remainingSeconds;
+            }
+            document.getElementById('timer').innerHTML = minutes + ":" + remainingSeconds;
+            if (seconds == 0) {
+                clearInterval(countdownTimer);
+                document.getElementById('timer').innerHTML = "Last chance!";
+                $('#theExam').modal('show');
+            } else {
+                seconds--;
+            }
+        }
+        function dissappare(){
+            
+        }
+        $('#examstartsnow').click(function () {
+            document.getElementById('closeModal2').style.display='none';
+            document.getElementById('closeBtnModal2').style.display='none';
+            document.getElementById('timer').innerHTML='';
+            document.getElementById('timer').style.display='block';
+            document.getElementById('ans-div').style.display='none';
+            document.getElementById('question-div').style.display='block';
+            document.getElementById('submitExam').style.display='block';
+            minutes = Math.round((seconds - 30) / 60);
+            remainingSeconds = seconds % 60;
+            if (remainingSeconds < 10) {
+                remainingSeconds = "0" + remainingSeconds;
+            }
+            document.getElementById('timer').innerHTML = minutes + ":" + remainingSeconds;
+            clearInterval(countdownTimer);
+            seconds = time;
+            // will only come inside after the modal is shown
+             countdownTimer = setInterval(secondPassed, 1000);
+             var elements = document.getElementsByTagName("input");
+
+             for (var i = 0; i < elements.length; i++) {
+                if (elements[i].type == "radio") {
+                    elements[i].checked = false;
+                }
+            }
+          });
+        //now your setInterval call is ok
+        
+        
+
+        const url = window.location.href;
+        const quizForm = document.getElementById('quiz-form');
+        const csrf = document.getElementsByName('csrfmiddlewaretoken');
+
+        const sendData = () => {
+            const elements = [...document.getElementsByClassName('ans')];
+            const data = {};
+            data['csrfmiddlewaretoken'] = csrf[0].value;
+            
+            elements.forEach(el => {
+                if (el.checked) {
+                    data[el.name] = el.value;
+                }
+                else {
+                    if (!data[el.name]) {
+                        data[el.name] = null;
+                    }
+                }
+            });
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'course-test-save' coursePk=course.pk %}",
+                data: data,
+                success: function (response) {
+                    document.getElementById('closeModal2').style.display='block';
+                    document.getElementById('timer').style.display='none';
+                    $('#question-div').hide();
+                    $('#ans-div').empty();
+                    document.getElementById('submitExam').style.display='none';
+                    const results = response.results;
+                    document.getElementById('ans-div').style.display = 'block';
+                    const resDiv = document.getElementById('ans-div');
+                    results.forEach(res => {
+                        
+                        for (const [question, resp] of Object.entries(res)) {
+                            const curr = document.createElement("div");
+                            curr.innerHTML += question;
+                            const cls = ['p-3', 'text-light', 'mb-3'];
+                            curr.classList.add(...cls);
+
+                            if (resp === 'not answered') {
+                                curr.innerHTML += '- not answered';
+                                curr.classList.add('bg-danger');
+                            }
+                            else {
+                                const answer = resp['answered'];
+                                const correct = resp['correct_answer'];
+
+                                if (answer == correct) {
+                                    curr.classList.add('bg-success');
+                                    curr.innerHTML += ` answered: ${answer}`;
+                                }
+                                else {
+                                    curr.classList.add('bg-danger')
+                                    curr.innerHTML += ` | correct answer: ${correct}`;
+                                    curr.innerHTML += ` | answered: ${answer}`;
+                                }
+                            }
+                            resDiv.append(curr);
+                        }
+                    })
+
+
+                },
+                error: function (error) {
+                    alert('error');
+                    console.log(error);
+                }
+            });
+        };
+
+        quizForm.addEventListener('submit', e => {
+           
+            e.preventDefault();
+            sendData();
+        });
+    </script>
+</body>
+
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends "subadmintemplates/layouts/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="buttons">
+    <div class="row col-xl-12 mt-5 ml-2">
+        {% for x in all %}
+        <div class="card ml-5" style="width: 15rem;height:23rem;">
+            <img class="card-img-top" style="margin-left: -.5px;" src="/media/{{x.image}}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">{{x.live_course_name}}</h5>
+                <p class="card-text">Some quick example text </p>
+
+            </div>
+
+            <a href="{% url 'the-live-course-admin' x.pk %}" style="margin-left: -0.5px; background-color:green; width:100%;border-radius: 0 0 1em 1em;"
+                class="btn btn-primary">Details <i class="fa fa-arrow-right"></i></a>
+        </div>
+        
+        {%endfor%}
+    </div>
+</div>
+{% endblock content %}
+    <!-- <script type='text/javascript'>
+    function reply_click(id){
+        var btn = document.getElementById(id);
+        btn.addEventListener("click", ()=>{
+            if(btn.value === "Enable"){
+                btn.value = "Disable";
+                btn.style.background='Red';
+            }else{
+                btn.value= "Enable";
+                btn.style.background='Green';
+            }
+        })
+    }
+    // button clr and text changing
+    /*const btn = document.getElementById("btnid1");
+    btn.addEventListener("click", ()=>{
+        if(btn.value === "Enable"){
+            btn.value = "Disable";
+            btn.style.background='Red';
+        }else{
+            btn.value= "Enable";
+            btn.style.background='Green';
+        }
+    })*/
+
+    //ajax
+    /*function changeButton(button, clr, text) {
+        button.css(clr);
+        button.text(text);
+    }
+    */
+</script> -->
+    <!-- Specific Page JS goes HERE  -->
+    {% block javascripts %}
+    <script>
+        /*
+        var cnt = 0, pre = 0;
+        function rep_click(id, obj) {
+            console.log(id);
+            let num = parseInt(obj);
+            if (pre != num) {
+                cnt = num;
+                pre = num;
+            }
+            cnt--;
+            document.getElementById(id).innerHTML = cnt;
+        }
+        function reply_click(id) {
+            var btn = document.getElementById(id);
+            var x = "status" + id;
+            var pt = document.getElementById(x);
+            //btn.value = window.getComputedValue(document.getElementById(id)).value;
+            if (btn.value == "Enable") {
+                btn.value = "Disable";
+                btn.style.background = 'Red';
+                document.getElementById(x).innerText = '';
+            } else {
+                btn.value = "Enable";
+                btn.style.background = 'Green';
+                document.getElementById(x).innerHTML = 'This course is disabled.';
+            }
+        }
+        //active status
+        $(".buttons").on("click", ".btn", function () {
+
+            let id = $(this).attr("data-sid");
+
+            mydata = { sid: id, 'csrfmiddlewaretoken': '{{ csrf_token }}' };
+            $.ajax({
+                url: "{% url 'activeState'%}",
+                method: "POST",
+                data: mydata,
+                'dataType': 'json',
+            });
+        })
+
+        //delete a video
+        $(".buttons").on("click", ".btn-del", function () {
+            let id1 = $(this).attr("data-cid");
+            //console.log(id1);
+            //console.log(cid);
+            mydata = { cid: id1, 'csrfmiddlewaretoken': '{{ csrf_token }}' };
+            mythis = this;
+            $.ajax({
+                url: "{% url 'delVideo'%}",
+                method: "POST",
+                data: mydata,
+                'dataType': 'json',
+                success: function (data) {
+                    if (data.status == 1) {
+                        $(mythis).closest("tr").fadeOut();
+                    }
+                }
+            });
+        })*/
+    </script>
+    {% endblock javascripts %}

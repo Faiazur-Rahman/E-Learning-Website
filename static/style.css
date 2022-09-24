@@ -2,7 +2,7 @@
 body{
     font-family : "Poppins", sans-serif;
     background-color: #f7f7f7;
-    
+    overflow-x: hidden;
 }
 h1 {
   font-family: Poppins;
@@ -28,7 +28,7 @@ h1 {
 }
 .btn-nav {
   border-radius: 16px;
-  color: black;
+  color: white;
   text-decoration: none;
 
   font-family: Poppins;
@@ -40,8 +40,9 @@ h1 {
   padding: 13px 25px;
 }
 .btn-nav:hover {
-  color: white;
-  background-color: green;
+  color: black;
+  transition: 0.3s;
+  background-color: white;
   outline: none;
   border-color: white;
 }
@@ -310,14 +311,17 @@ body {
   padding-bottom: 0 !important;
   min-height: 55px !important;
 }
+/* .shrink a{
+  padding-top: 10px !important;
+} */
 .shrink a h4 {
-  padding-top: 0 !important;
+  padding-top: 5px !important;
   padding-bottom: 0 !important;       
   font-size: 15px;
 }
 .navbar{
   max-height: 90px;
-  background-color: white;
+  background-color: rgb(13, 170, 13);
   box-shadow: 0 0 20px rgba(0,0,0,.2);
 }
 
@@ -377,6 +381,7 @@ body {
     .footer-99382 .nav-links li a {
       color: black; }
       .footer-99382 .nav-links li a:hover {
+        transition: .3s;
         color: green; 
         text-decoration: none;
       }
@@ -408,6 +413,16 @@ body {
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+  .blogs p{
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .blogvis p{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
   }
   .quick-link-container li{
     padding-left: 10px; height:50px;
@@ -674,4 +689,13 @@ text-align: center;
 .sidenav a:hover {
   color: white;
   background-color: green;
+}
+.blog-links a{
+  height:50px;
+    font-family: 	"Times New Roman", Times, serif;
+    font-size: 25px;
+}
+
+.src-box .form-control{
+  border: 2px solid #0fd60f;
 }

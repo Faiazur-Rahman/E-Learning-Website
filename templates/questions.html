@@ -1,0 +1,85 @@
+{% extends 'base.html'%}
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+{% include 'navbar.html'%}
+
+<body>
+    <div class="row" style="padding-top: 50px;padding-bottom:50px;">
+        <div class="src-box" style="width: 800px;">
+
+            <div style="padding-bottom: 100px; padding-left:50px;">
+                <form style="padding-left:5px;padding-top: 3px;width:745px;">
+                    <div class="form-group">
+                        <input class="form-control" type="text" placeholder="&#xF002; Search"
+                            style="font-family:Arial, FontAwesome" />
+                    </div>
+                </form>
+                <div>
+                    <h3 style="float:left;">All Questions</h3>
+                    <a href="{% url 'ask-question' %}" style="float:right; text-decoration:none;color:white;"
+                        class="btn btn-primary">Ask Questions</a>
+                </div>
+            </div>
+            <hr style="background-color:green; margin-top: -35px;" />
+            {% for x in all %}
+            <div style="padding-left: 50px;">
+
+                <div style="display:inline-block;"><a style="text-decoration: none;"
+                        href="{% url 'single-question' qusPk=x.pk %}">
+                        <h4>{{x.title}}</h4>
+                    </a></div>
+                <p>
+                    {{x.question|safe}}
+                </p>
+                <br>
+                <div class="row">
+                    <div class="col-8">
+                       <b> Answers: {{x.get_answer_count}}</b>
+                    </div>
+                    <div class="col-4">
+                        <a href="#">{{x.auther.name}}</a> asked {{x.timestamp|naturaltime}}
+                    </div>
+                </div>
+            </div>
+            <hr style="background-color:green; " />
+            {% endfor %}
+        </div>
+        <div class="shadow rounded" style="padding-left: 50px; width:400px;">
+            <div class="card " style="background-color: rgb(255, 255, 162);">
+                <div class="card-header">
+                    Featured
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Ask question and get answers</h5>
+                    <p class="card-text"></p>
+                </div>
+            </div>
+            <div class="card " style="background-color: white; margin-top:50px;">
+                <div class="card-header">
+                    My Questions
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Previously ask questions</h5>
+                    <hr style="background-color:green; " />
+                    <br>
+                    {% if users_qus %}
+                    {% for qus in users_qus %}
+                    <p class="card-text"><a href="{% url 'single-question' qusPk=qus.pk %}">{{qus.title}}</a></p>
+                    <p class="card-text">Asked : {{qus.timestamp}}</p>
+                    <hr style="background-color:green; " />
+
+                    {%endfor%}
+                    {%else%}
+                    No Questions Asked
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+       
+    </div>
+    {% include 'footer.html'%}
+    <script src="{% static 'script.js' %}"></script>
+</body>
+{% endblock %}

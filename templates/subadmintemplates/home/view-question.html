@@ -1,0 +1,46 @@
+{% extends "subadmintemplates/layouts/base.html" %}
+
+{% block title %} Questions {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="static/subadminstatic/assets/plugins/chart-morris/css/morris.css">
+    
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="col-xl-10 col-md-6" style="padding-top: 50px;padding-left:50px">
+    <div class="card ">
+        <div class="card-header">
+            <h5>Question</h5>
+            <form action="{% url 'question-admin'%}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{qus.pk}}">
+            <div style="float: right;"><input class="label theme-bg2 text-white f-12" style="cursor: pointer;" type="submit" name="approve" value="Approve">
+            <input class="label theme-bg text-white f-12" style="cursor: pointer;" type="submit" name="approve" value="Delete">
+        </div></form>
+        </div>
+        <div class="card-block px-0 py-3">
+            <div class="view-question" style="padding-left: 20px;">
+                <h3>{{qus.title}}</h3>
+                
+                <h4>{{qus.question|safe}}</h4>
+                
+            </div>
+        </div>
+    </div>
+    
+
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+    <script src="/static/assets/plugins/chart-morris/js/raphael.min.js"></script>
+    <script src="/static/assets/plugins/chart-morris/js/morris.min.js"></script>
+    <script src="/static/assets/js/pages/chart-morris-custom.js"></script>
+
+{% endblock javascripts %}

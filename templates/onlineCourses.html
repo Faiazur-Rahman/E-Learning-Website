@@ -1,7 +1,7 @@
 {% extends 'base.html'%}
 {% load static %}
 {% block content %}
-{% include 'head.html'%}
+
 {% include 'navbar.html'%}
 
 <body >
@@ -41,24 +41,24 @@
             <div class="row">
                 <div class="col-md-4 cards-with-shadow">
                     <div class="card " style="width: 15rem;height:23rem;">
-                        <img class="card-img-top" style="margin-left: -.5px;" src="/static/images/bg-4.jpg"
+                        <img class="card-img-top" style="margin-left: -.5px;" src="/static/images/bg-5.jpg"
                             alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text </p>
+                            <h5 class="card-title">Intro to Mashrooms</h5>
+                            <p class="card-text">By Emon <br>Learn how to grow Mashrooms </p>
                         </div>
-                        <a href="#"
+                        <a href="{% url 'courseOutlineOnline' 10 %}"
                             style="margin-left: -0.5px; background-color:green; width:100%;border-radius: 0 0 1em 1em;"
                             class="btn btn-primary">Register <i class="fa fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="col-md-4 cards-with-shadow">
                     <div class="card " style="width: 15rem;height:23rem;">
-                        <img class="card-img-top" style="margin-left: -.5px;" src="/static/images/bg-5.jpg"
+                        <img class="card-img-top" style="margin-left: -.5px;" src="/static/images/bg-4.jpg"
                             alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text </p>
+                            <h5 class="card-title">Intro to strawberry</h5>
+                            <p class="card-text">By Aritra <br>Learn how to grow strawberries </p>
 
                         </div>
 
@@ -72,8 +72,8 @@
                         <img class="card-img-top" style="margin-left: -.5px;" src="/static/images/bg-6.jpg"
                             alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text </p>
+                            <h5 class="card-title">Intro to Dates</h5>
+                            <p class="card-text">By Faiaz <br>Learn how to grow Dates </p>
 
                         </div>
 
@@ -110,7 +110,7 @@
                         style=" width: 300px; margin-left:15px; height:fit-content; border-radius: 1em 0em 0em 1em;">
                     <div class="card-body" style="text-align: left;">
                         <div class="panel panel-default">
-                            <div class="panel-body">A Basic Panel</div>
+                            <div class="panel-body">Self-paced course</div>
                         </div>
                         <div style="max-width: 300px;">
                             <h4 style="color: green;">
@@ -135,7 +135,7 @@
                         style=" width: 300px; margin-left:15px; height:fit-content; border-radius: 1em 0em 0em 1em;">
                     <div class="card-body" style="text-align: left;">
                         <div class="panel panel-default">
-                            <div class="panel-body">A Basic Panel</div>
+                            <div class="panel-body">Self-paced course</div>
                         </div>
                         <div style="max-width: 300px;">
                             <h4 style="color: green;">

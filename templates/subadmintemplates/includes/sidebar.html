@@ -16,7 +16,7 @@
                 </li>
                 <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
                     class="nav-item {% if 'index' in segment %} active {% endif %}">
-                    <a href="subadminhome" class="nav-link "><span class="pcoded-micon"><i
+                    <a href="{% url 'subadminhome' %}" class="nav-link "><span class="pcoded-micon"><i
                                 class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
                 </li>
                 <!-- <li class="nav-item pcoded-menu-caption">
@@ -33,16 +33,16 @@
                     <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i
                                 class="feather icon-box"></i></span><span class="pcoded-mtext">Courses</span></a>
                     <ul class="pcoded-submenu">
-                        <li class=""><a href="courseDetails" class="">Course Details</a></li>
-                        <li class=""><a href="newCourses" class="">New Course</a></li>
-                        <li class=""><a href="/ui-badges.html" class="">Remove Course</a></li>
                         <li data-username="haha" class="nav-item pcoded-hasmenu">
-                            <a href="javascript:" class="nav-link "><span class="pcoded-mtext">Video</span></a>
+                            <a href="javascript:" class="nav-link "><span class="pcoded-mtext">Course details</span></a>
                             <ul class="pcoded-submenu">
-                                <li class=""><a href="addVideo" class="">Add</a></li>
-                                <li class=""><a href="/ui-button.html" class="">Remove</a></li>
+                                <li><a href="{% url 'onlineCourseDetails' %}" class="">Self-Paced</a></li>
+                                <li><a href="{% url 'liveCourseDetails' %}" class="">Live</a></li>
                             </ul>
                         </li>
+                        <li class=""><a href="{% url 'newCourses' %}" class="">New Course</a></li>
+                        <li class=""><a href="/ui-badges.html" class="">Remove Course</a></li>
+
 
                     </ul>
                 </li>
@@ -51,10 +51,17 @@
                 </li>
                 <li data-username="Charts Morris"
                     class="nav-item {% if 'charts-morris' in segment %} active {% endif %}">
-                    <a href="my_articles" class="nav-link "><span class="pcoded-micon"><i
+                    <a href="{% url 'my_articles' %}" class="nav-link "><span class="pcoded-micon"><i
                                 class="feather icon-pie-chart"></i></span><span class="pcoded-mtext">Articles</span></a>
                 </li>
-
+                <li class="nav-item pcoded-menu-caption">
+                    <label>Question</label>
+                </li>
+                <li data-username="Charts Morris"
+                    class="nav-item {% if 'charts-morris' in segment %} active {% endif %}">
+                    <a href="{% url 'question-admin'%}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-pie-chart"></i></span><span class="pcoded-mtext">Question</span></a>
+                </li>
                 <li class="nav-item pcoded-menu-caption">
                     <label>Users</label>
                 </li>

@@ -40,6 +40,7 @@ $(document).ready(function () {
 //     let id = $(this).attr("data-sid");
     
 // })
-  
+$('.modal').css('overflow-y', 'auto');
+
 
 

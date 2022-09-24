@@ -1,0 +1,19 @@
+{% extends 'instructor-base.html'%}
+{% block content %}
+<div class="row col-xl-12 mt-5 ml-2">
+    {% for x in all %}
+    <div class="card ml-5" style="width: 15rem;height:23rem;">
+        <img class="card-img-top" style="margin-left: -.5px;" src="/media/{{x.image}}" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">{{x.course_name}}</h5>
+            <p class="card-text">Some quick example text </p>
+
+        </div>
+
+        <a href="{% url 'instructor_the_course' x.pk %}" style="margin-left: -0.5px; background-color:green; width:100%;border-radius: 0 0 1em 1em;"
+            class="btn btn-primary">Details <i class="fa fa-arrow-right"></i></a>
+    </div>
+    
+    {%endfor%}
+</div>
+{% endblock %}

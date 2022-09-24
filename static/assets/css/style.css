@@ -66,14 +66,7 @@ body {
   position: relative;
 }
 
-*:focus {
-  outline: none;
-}
 
-a:hover {
-  outline: none;
-  text-decoration: none;
-}
 
 h1,
 h2,
@@ -109,9 +102,7 @@ h6 {
   font-size: 14px;
 }
 
-p {
-  font-size: 14px;
-}
+
 
 strong {
   font-weight: 400;
@@ -211,7 +202,7 @@ p.text-muted {
 }
 .card .card-header h5:after {
   content: "";
-  background-color: #04a9f5;
+  background-color: #08f504;
   position: absolute;
   left: -25px;
   top: 0;

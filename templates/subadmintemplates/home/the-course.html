@@ -1,0 +1,380 @@
+{% extends "subadmintemplates/layouts/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="buttons pl-4">
+    <div class="col-xl-10 col-md-6 mt-5">
+        <div class="card Recent-Users">
+            <div class="card-header">
+                <h5>Course Name</h5>
+                <br>
+                <br>
+                <h3>{{course}}</h3>
+                {%if online == 1%}
+                <div style="display: inline; position: relative;float: right;">
+                    {% if not course.active_state %}
+                    <input type="button" id="btnid{{course.id}}" onclick="reply_click(this.id)" data-sid="{{course.id}}"
+                        class="btn btn-active-state"
+                        style="background-color: green; color:white;position: relative;float: right;" value="Enable">
+                    {% else %}
+                    <input type="button" id="btnid{{course.id}}" onclick="reply_click(this.id)" data-sid="{{course.id}}"
+                        class="btn btn-active-state"
+                        style="background-color: Red; color:white;position: relative;float: right;" value="Disable">
+                    {% endif %}
+
+                    <!-- <button id="btnid" class="btn buttons" data-sid="{{one_obj.id}}" >Enable</button> -->
+                </div>
+                {% if not course.active_state %}
+                <p id="statusbtnid{{course.id}}">
+                    This course is disabled.
+                </p>
+                {% else %}
+                <p id="statusbtnid{{course.id}}">
+                </p>
+                {% endif %}
+                {%endif%}
+            </div>
+
+        </div>
+    </div>
+    <div class="col-xl-10 col-md-6 mt-5">
+        <div class="card Recent-Users">
+            <div class="card-header">
+                <h5>Course Videos</h5>
+            </div>
+            <div class="card-block px-0 py-3">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <tbody>
+                            {% for x in course_vid %}
+                            <tr class="unread">
+                                <!-- <td><img class="rounded-circle" style="width:40px;" src="/static/assets/images/user/avatar-1.jpg" alt="activity-user"></td> -->
+                                <td>
+                                    <h5 style="padding-left: 10px;">{{x.caption}}</h5>
+                                    <!-- <div  style="display: inline; position: relative;float: right;" > -->
+                                </td>
+                                <td>
+                                    <div style="display: inline; position: relative;float: right; padding-right: 50px;">
+                                        <input style="background: red; color:white"
+                                            onclick="rep_click('cnt{{course.id}}','{{course_vid|length}}')"
+                                            type="button" class="btn-sm btn-del" data-cid="{{x.id}}" value="Delete">
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-10 col-md-6 mt-5">
+        <div class="card Recent-Users">
+            <div class="card-header">
+                <h5>Course attandees</h5>
+            </div>
+            <div class="card-block px-0 py-3">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <tbody>
+                            {% for x in students %}
+                            <tr class="unread">
+                                <!-- <td><img class="rounded-circle" style="width:40px;" src="/static/assets/images/user/avatar-1.jpg" alt="activity-user"></td> -->
+                                <td >
+                                    <h5 style="padding-left: 10px;">{{x.student.name}}</h5>
+                                    <!-- <div  style="display: inline; position: relative;float: right;" > -->
+                                </td>
+                                <td >
+                                    
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {%if online == 0 %}
+    <div class="col-xl-10 col-md-6 mt-5">
+        <div class="card Recent-Users">
+            <div class="card-header">
+                <h5>Session link</h5>
+            </div>
+            <div class="card-block px-0 py-3">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr >
+                                <td >
+                                    <h5>Current Link :</h5>
+                                    <div>
+                                        {{session_link}}
+                                        <br>
+                                        <br>
+                                        <h6>Send link to all students</h6>
+                                    <a href="{% url 'liveCourseLinkSend' course.pk %}" class="btn btn-primary" style="color: white;">Send link</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >
+                                    <form action="{% url 'the-live-course-admin' pk=course.pk %}" method="POST">
+                                        {%csrf_token%}
+                                        <div class="form-group">
+                                            <label for="session_url">Enter sassion link</label>
+                                            <input class="form-control" type="url" id="homepage" name="session_url"><br><br>
+
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {%endif%}
+    <div class="col-xl-10 col-md-6 mt-5">
+        <div class="card Recent-Users">
+            <div class="card-header">
+                <h5>Pending Course attandees</h5>
+            </div>
+            <div class="card-block px-0 py-3">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <tbody>
+                            
+                            {% for x in pending_students %}
+                            <tr class="unread">
+                                <!-- <td><img class="rounded-circle" style="width:40px;" src="/static/assets/images/user/avatar-1.jpg" alt="activity-user"></td> -->
+                                <td>
+                                    <h5 style="padding-left: 10px;">{{x.student.name}}</h5>
+                                    <!-- <div  style="display: inline; position: relative;float: right;" > -->
+                                </td>
+                                <td>
+                                    <div style="display: inline; position: relative;float: right; padding-right: 50px;">
+                                        
+                                            
+                                        {%if online == 1%}
+                                        <a href="{% url 'pending_to_active' course_pk=course.pk stu_pk=x.pk sid=1 %}"  style="color: white;"
+                                             class="btn btn-primary " >Approve</a>
+                                        {%else%}
+                                        <a href="{% url 'pending_to_active' course_pk=course.pk stu_pk=x.pk sid=0 %}" style="color: white;"
+                                        class="btn btn-primary " >Approve</a>
+                                        {%endif%}
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-10 col-md-6 mt-5">
+        <div class="card Recent-Users">
+            <div class="card-header">
+                <h5>Course Instructor</h5>
+            </div>
+            <div class="card-block px-3 py-3">
+                {% if course.instructor%}
+                <div class="card" style="width: 100%; padding-left:30px; margin-top:-1px; margin-bottom:-1px;">
+                    <div class="row">
+                        <img class="card-img" src="/static/images/ami.jpg" alt=""
+                            style=" width: 200px; margin-left:15px; height:200px; border-radius: 10em 10em 10em 10em;">
+                        <div class="card-body" style="text-align: left;">
+                            <div class="panel panel-default">
+                                <div class="panel-body">A Basic Panel</div>
+                            </div>
+                            <div style="max-width: 300px;">
+                                <h4 style="color: green;">
+                                    Faiazur Rahman Bhuiyan
+                                </h4>
+
+                                Krishi officer Rajshahi
+
+                            </div>
+                            <div class="col-15 pt-5">
+
+                                <a href="#" style="background-color:oranges;border-radius: 1em 1em 1em 1em;"
+                                    class="btn btn-warning">Change Instructor</a>
+                                <a href="#" style="background-color: red;border-radius: 1em 1em 1em 1em;"
+                                    class="btn btn-primary">Remove</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                {%else%}
+                <h3>No Instructor</h3>
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal"
+                    data-whatever="@mdo">Asign Instructor</button>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            {%if online == 1%}
+                            <form action="{% url 'the-course-admin' course.pk %}" method="POST">
+                                {% csrf_token %}
+                                <div class="modal-body">
+
+                                    <div class="form-group">
+                                        {{ form1.instructor|as_crispy_field }}
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Create</button>
+                                </div>
+                            </form>
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {%if online == 1%}
+    <div class="col-xl-10 col-md-6 mt-5">
+        <div class="card Recent-Users">
+            <div class="card-header">
+                <h5>Add video</h5>
+            </div>
+            <div class="card-block px-3 py-3">
+                <form action="{% url 'the-course-admin' course.pk %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{ form2.caption|as_crispy_field }}
+                        {{ form2.video|as_crispy_field }}
+                        {{ form2.is_paid|as_crispy_field }}
+                        
+                    </div>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2"
+                        data-whatever="@mdo">Add new</button>
+
+                    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+
+                                    <h5>Add new video to this course?</h5>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if messages %}
+                        {% for message in messages %}
+                        {% if message.tags %}
+                        <script>alert("{{ message }}")</script> {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+    {%endif%}
+</div>
+
+{% endblock%}
+
+{% block javascripts %}
+
+<script>
+    /*$('#exampleModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var recipient = button.data('whatever') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('.modal-title').text('New message to ' + recipient)
+        modal.find('.modal-body input').val(recipient)
+    })
+    $('#exampleModal2').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        
+    })*/
+    var cnt = 0, pre = 0;
+    function rep_click(id, obj) {
+        console.log(id);
+        let num = parseInt(obj);
+        if (pre != num) {
+            cnt = num;
+            pre = num;
+        }
+        cnt--;
+        document.getElementById(id).innerHTML = cnt;
+    }
+    function reply_click(id) {
+        var btn = document.getElementById(id);
+        var x = "status" + id;
+        var pt = document.getElementById(x);
+        //btn.value = window.getComputedValue(document.getElementById(id)).value;
+        if (btn.value == "Enable") {
+            btn.value = "Disable";
+            btn.style.background = 'Red';
+            document.getElementById(x).innerText = '';
+        } else {
+            btn.value = "Enable";
+            btn.style.background = 'Green';
+            document.getElementById(x).innerHTML = 'This course is disabled.';
+        }
+    }
+    //active status
+    $(".buttons").on("click", ".btn-active-state", function () {
+
+        let id = $(this).attr("data-sid");
+
+        mydata = { sid: id, 'csrfmiddlewaretoken': '{{ csrf_token }}' };
+        $.ajax({
+            url: "{% url 'activeState'%}",
+            method: "POST",
+            data: mydata,
+            'dataType': 'json',
+            success: function (data) {
+                console.log(data.status);
+            }
+        });
+    })
+
+    //delete a video
+    $(".buttons").on("click", ".btn-del", function () {
+        let id1 = $(this).attr("data-cid");
+        //console.log(id1);
+        //console.log(cid);
+        mydata = { cid: id1, 'csrfmiddlewaretoken': '{{ csrf_token }}' };
+        mythis = this;
+        $.ajax({
+            url: "{% url 'delVideo'%}",
+            method: "POST",
+            data: mydata,
+            'dataType': 'json',
+            success: function (data) {
+                if (data.status == 1) {
+                    $(mythis).closest("tr").fadeOut();
+                }
+            }
+        });
+    })
+</script>
+{% endblock javascripts %}

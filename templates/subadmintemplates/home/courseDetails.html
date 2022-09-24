@@ -2,62 +2,26 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <div class="buttons">
-    {% for one_obj in one_objs %}
-        <div class="col-xl-10 col-md-6 mt-3">
-            <div class="card Recent-Users">
-                <div class="card-header">
-                    <h5>{{one_obj.course_name}}</h5>
-                    <span id="cnt{{one_obj.id}}"  class="badge badge-primary badge-pill">{{one_obj.allcoursevideos_set.all|length}}</span>
-                    <div  style="display: inline; position: relative;float: right;" >
-                        {% if not one_obj.active_state %}
-                        <input  type="button" id="btnid{{one_obj.id}}" onclick="reply_click(this.id)" data-sid="{{one_obj.id}}" class="btn" style="background-color: green; color:white;position: relative;float: right;" value="Enable">
-                        {% else %}
-                        <input  type="button" id="btnid{{one_obj.id}}" onclick="reply_click(this.id)" data-sid="{{one_obj.id}}" class="btn" style="background-color: Red; color:white;position: relative;float: right;" value="Disable">
-                        {% endif %}
-                        
-                        <!-- <button id="btnid" class="btn buttons" data-sid="{{one_obj.id}}" >Enable</button> -->
-                    </div>
-                    {% if not one_obj.active_state %}
-                    <p id="statusbtnid{{one_obj.id}}">
-                        This course is disabled.
-                    </p>
-                    {% else %}
-                    <p id="statusbtnid{{one_obj.id}}">
-                    </p>
-                    {% endif %}
-                </div>
-                <div class="card-block px-0 py-3">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <tbody>
-                                {% for m_obj in one_obj.allcoursevideos_set.all %}
-                                    <tr class="unread">
-                                        <!-- <td><img class="rounded-circle" style="width:40px;" src="/static/assets/images/user/avatar-1.jpg" alt="activity-user"></td> -->
-                                        <td>
-                                            <h5 style="padding-left: 10px;">{{m_obj.caption}}</h5>
-                                            <!-- <div  style="display: inline; position: relative;float: right;" > -->
-                                        </td>
-                                        <td>
-                                            <div  style="display: inline; position: relative;float: right; padding-right: 50px;" >
-                                            <input style="background: red; color:white" onclick="rep_click('cnt{{one_obj.id}}','{{one_obj.allcoursevideos_set.all|length}}')" type="button" class="btn-sm btn-del"  data-cid="{{m_obj.id}}" value="Delete">
-                                        </div>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+<div class="buttons">
+    <div class="row col-xl-12 mt-5 ml-2">
+        {% for x in all %}
+        <div class="card ml-5" style="width: 15rem;height:23rem;">
+            <img class="card-img-top" style="margin-left: -.5px;" src="/media/{{x.image}}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">{{x.course_name}}</h5>
+                <p class="card-text">Some quick example text </p>
+
             </div>
+
+            <a href="{% url 'the-course-admin' x.pk %}" style="margin-left: -0.5px; background-color:green; width:100%;border-radius: 0 0 1em 1em;"
+                class="btn btn-primary">Details <i class="fa fa-arrow-right"></i></a>
         </div>
-        <!-- {% for m_obj in one_obj.many_set.all %}
-            # do stuff with m_obj here
-        {% endfor %} -->
-    {% endfor %}
+        
+        {%endfor%}
+    </div>
 </div>
 {% endblock content %}
-<!-- <script type='text/javascript'>
+    <!-- <script type='text/javascript'>
     function reply_click(id){
         var btn = document.getElementById(id);
         btn.addEventListener("click", ()=>{
@@ -89,67 +53,68 @@
     }
     */
 </script> -->
-<!-- Specific Page JS goes HERE  -->
-{% block javascripts %}
-<script >
-    var cnt=0,pre=0;
-    function rep_click(id,obj){
-        console.log(id);
-        let num=parseInt(obj);
-        if(pre!=num){
-            cnt=num;
-            pre=num;
+    <!-- Specific Page JS goes HERE  -->
+    {% block javascripts %}
+    <script>
+        /*
+        var cnt = 0, pre = 0;
+        function rep_click(id, obj) {
+            console.log(id);
+            let num = parseInt(obj);
+            if (pre != num) {
+                cnt = num;
+                pre = num;
+            }
+            cnt--;
+            document.getElementById(id).innerHTML = cnt;
         }
-        cnt--;
-        document.getElementById(id).innerHTML=cnt;
-    }
-    function reply_click(id){
-        var btn = document.getElementById(id);
-        var x="status"+id;
-        var pt=document.getElementById(x);
+        function reply_click(id) {
+            var btn = document.getElementById(id);
+            var x = "status" + id;
+            var pt = document.getElementById(x);
             //btn.value = window.getComputedValue(document.getElementById(id)).value;
-        if(btn.value == "Enable"){
-            btn.value = "Disable";
-            btn.style.background='Red';
-            document.getElementById(x).innerText='';
-        }else{
-            btn.value= "Enable";
-            btn.style.background='Green';
-            document.getElementById(x).innerHTML='This course is disabled.';
+            if (btn.value == "Enable") {
+                btn.value = "Disable";
+                btn.style.background = 'Red';
+                document.getElementById(x).innerText = '';
+            } else {
+                btn.value = "Enable";
+                btn.style.background = 'Green';
+                document.getElementById(x).innerHTML = 'This course is disabled.';
+            }
         }
-    }
-    //active status
-    $(".buttons").on("click",".btn", function(){
-        
-        let id=$(this).attr("data-sid");
-        console.log(id);
-        mydata={sid:id, 'csrfmiddlewaretoken': '{{ csrf_token }}' };
+        //active status
+        $(".buttons").on("click", ".btn", function () {
+
+            let id = $(this).attr("data-sid");
+
+            mydata = { sid: id, 'csrfmiddlewaretoken': '{{ csrf_token }}' };
             $.ajax({
-                url:"{% url 'activeState'%}",
-                method:"POST",
+                url: "{% url 'activeState'%}",
+                method: "POST",
                 data: mydata,
                 'dataType': 'json',
             });
-    })
+        })
 
-    //delete a video
-    $(".buttons").on("click",".btn-del",function(){
-        let id1=$(this).attr("data-cid");
-        console.log(id1);
-        //console.log(cid);
-        mydata={cid:id1 , 'csrfmiddlewaretoken': '{{ csrf_token }}' };
-        mythis=this;
-        $.ajax({
-            url:"{% url 'delVideo'%}",
-            method:"POST",
-            data: mydata,
-            'dataType': 'json',
-            success: function(data){
-                if(data.status==1){
-                    $(mythis).closest("tr").fadeOut();
+        //delete a video
+        $(".buttons").on("click", ".btn-del", function () {
+            let id1 = $(this).attr("data-cid");
+            //console.log(id1);
+            //console.log(cid);
+            mydata = { cid: id1, 'csrfmiddlewaretoken': '{{ csrf_token }}' };
+            mythis = this;
+            $.ajax({
+                url: "{% url 'delVideo'%}",
+                method: "POST",
+                data: mydata,
+                'dataType': 'json',
+                success: function (data) {
+                    if (data.status == 1) {
+                        $(mythis).closest("tr").fadeOut();
+                    }
                 }
-            }
-        });
-    })
-</script>
-{% endblock javascripts %}
+            });
+        })*/
+    </script>
+    {% endblock javascripts %}

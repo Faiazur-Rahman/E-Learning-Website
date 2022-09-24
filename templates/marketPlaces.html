@@ -1,0 +1,106 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+
+{% include 'navbar.html'%}
+
+<body >
+    <section style="padding-bottom:50px; padding-top:50px;">
+        <div class="blog-search">
+            <form action="blog-single.html">
+                <input type="text" />
+                <input class="blog-btn" type="submit" value="Search" />
+            </form>
+        </div>
+        <div class="container active-demo cards-with-shadow" id="free-courses" style="padding-top:30px;">
+            <div class="card" style="width: 950px; padding-top:0; margin-top:-1px; margin-bottom:-1px;">
+                <div class="row">
+                    <img class="card-img" src="/static/images/bg-7.jpg" alt=""
+                        style=" width: 300px; margin-left:15px; height:fit-content; border-radius: 1em 0em 0em 1em;">
+                    <div class="card-body" style="text-align: left;">
+                        <div class="panel panel-default">
+                            <div class="panel-body">Strawberry</div>
+                        </div>
+                        <div style="max-width: 400px;">
+                            <h4 style="color: green;">
+                                Strawberry House Chittogong
+                            </h4>
+
+                            Proprietor Mr. Emon Khan
+                            <br> <br>
+                            Phone: 01997151180 <br>
+                            Email: emon123@gmail.com
+                        </div>
+                        <div style=" position:absolute;right:20px;bottom:20px;width: 100px;height:30px;">
+                            <a href="#" style="background-color: green;border-radius: 1em 1em 1em 1em;"
+                                class="btn btn-primary">Details <i class="fa fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container active-demo cards-with-shadow" id="free-courses" style="padding-top:30px;">
+            <div class="card" style="width: 950px; padding-top:0; margin-top:-1px; margin-bottom:-1px;">
+                <div class="row">
+                    <img class="card-img" src="/static/images/bg-6.jpg" alt=""
+                        style=" width: 300px; margin-left:15px; height:fit-content; border-radius: 1em 0em 0em 1em;">
+                    <div class="card-body" style="text-align: left;">
+                        <div class="panel panel-default">
+                            <div class="panel-body">Dates</div>
+                        </div>
+                        <div style="max-width: 400px;">
+                            <h4 style="color: green;">
+                                Dates House Dhaka
+                            </h4>
+
+                            Proprietor Mr. Faiaz Khan
+                            <br> <br>
+                            Phone: 01997151180 <br>
+                            Email: faiaz123@gmail.com
+                        </div>
+                        <div style=" position:absolute;right:20px;bottom:20px;width: 100px;height:30px;">
+                            <a href="#" style="background-color: green;border-radius: 1em 1em 1em 1em;"
+                                class="btn btn-primary">Details <i class="fa fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% include 'footer.html'%}
+    <script src="{% static 'script.js' %}"></script>
+    <style>
+        .blog-search {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+
+        .blog-search>form>input {
+            padding: 10px;
+            font-size: 20px;
+            border-color: rgb(7, 225, 7);
+            border-radius: 10px;
+        }
+        .blog-btn {
+            color: white;
+            background-color: rgb(37, 211, 37);
+
+            border: none;
+            border-radius: 40px;
+
+            padding: 15px 30px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .blog-btn:hover {
+            text-decoration: none;
+            color: black;
+            cursor: pointer;
+        }
+    </style>
+</body>
+{% endblock %}

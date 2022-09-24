@@ -1,0 +1,71 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+
+{% include 'navbar.html'%}
+
+<body style="font-family: Arial;">
+    <div class="" style="width: 850px; padding-left:50px;padding-top:50px;">
+        <h2>Ask a question</h2>
+        <div class="card" style="background-color: rgb(216, 248, 237);margin-top:30px;">
+            <div class="card-body">
+                <h4 style="padding-top: 10px;">
+                    Writing a good question</h4>
+                <br>
+                <h5>
+                    You’re ready to ask a programming-related question and this form will help guide you through the
+                    process.</h5>
+                <br>
+                <h6>Looking to ask a non-programming question? See the topics here to find a relevant site.</h6>
+
+                <h6>Steps</h6>
+                <ul>
+                    <li>Summarize your problem in a one-line title.
+                    </li>
+                    <li>Describe your problem in more detail.</li>
+                    <li>Describe what you tried and what you expected to happen.</li>
+                    <li>Add “tags” which help surface your question to members of the community.</li>
+                    <li>Review your question and post it to the site.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <div class="row" style="margin-left:50px;margin-top: 50px; margin-bottom:50px;">
+        <div class="card" style=" width: 800px;">
+            <div class="card-body">
+                <form action="ask-question" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    {{ form.media }}
+                    {{ form.as_p }}
+
+                    <input class="btn btn-primary" type="submit" value="Preview">
+                </form>
+            </div>
+        </div>
+        <div style="padding-left: 20px;">
+            <div class="card" style="width: 380px;">
+                <div class="card-header">
+                    Writing a good title
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                      <div style="padding-left: 20px;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="50" height="65" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                    <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                  </svg>
+                      </div>
+                      <div style="max-width: 280px; padding-left:20px;">
+                  <p class="card-text" style="font-size:14px;">Your title should summarize the problem. You will be able to edit the title after writing out the rest of the question..</p>
+                      </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </div>
+    {% include 'footer.html'%}
+    <script src="{% static 'script.js' %}"></script>
+</body>
+{% endblock %}

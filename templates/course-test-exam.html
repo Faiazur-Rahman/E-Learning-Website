@@ -1,0 +1,144 @@
+{% extends 'base.html'%}
+{% load static %}
+{% load humanize %}
+{% load extras %}
+{% block content %}
+{% include 'head.html'%}
+{% include 'navbar.html'%}
+
+<body>
+            <div class="container">
+
+                <h2>Course tests on Mashrooms</h2>
+                <br>
+                <br>
+                    <h4>{{exam.title}}</h4>
+                <br>
+
+                <form id="quiz-form">
+                    {% csrf_token %}
+                    <div id="question-div">
+                        {% for qus in questions %}
+                        {% for q, ans in qus.items%}
+                        <div class="mb-2">
+                            <b>{{ q }}</b>
+                        </div>
+                        {% for a in ans %}
+                        <div>
+                            <input type="radio" class="ans" name="{{q}}" id="{{q}}-{{a}}" value="{{a}}">
+                            <label for="{{q}}">{{a}}</label>
+                        </div>
+                        {% endfor %}
+                        {% endfor %}
+                        {% endfor %}
+                    </div>
+                    <button id="submitExam" class="btn btn-success" type="submit">Submit</button>
+                </form>
+                <div id="ans-div">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'footer.html'%}
+    <script>
+       /* if ($('#startExam').is(':visible')) {
+            // will only come inside after the modal is shown
+            alert('hi');
+            const time = '{{time}}';
+            time = time * 60;
+            const timer = document.getElementById('timer');
+            setInterval(updateCountdown, 1000);
+            function updateCountdown() {
+                alert('hi');
+                const minute = Math.floor(time / 60);
+                let second = time % 60;
+
+                second = second < 10 ? '0' + second : second;
+
+                timer.innerHTML = `${minute}:${second}`;
+                time--;
+            }
+        }*/
+
+
+        const url = window.location.href;
+        const quizForm = document.getElementById('quiz-form');
+        const csrf = document.getElementsByName('csrfmiddlewaretoken');
+
+        const sendData = () => {
+           
+            const elements = [...document.getElementsByClassName('ans')];
+            const data = {};
+            data['csrfmiddlewaretoken'] = csrf[0].value;
+            
+            elements.forEach(el => {
+                if (el.checked) {
+                    data[el.name] = el.value;
+                }
+                else {
+                    if (!data[el.name]) {
+                        data[el.name] = null;
+                    }
+                }
+            });
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'course-test-save' coursePk=course.pk examPk=exam.pk %}",
+                data: data,
+                success: function (response) {
+                    
+                    $('#question-div').hide();
+                    $('#ans-div').empty();
+                    document.getElementById('submitExam').style.display='none';
+                    const results = response.results;
+                    document.getElementById('ans-div').style.display = 'block';
+                    const resDiv = document.getElementById('ans-div');
+                    results.forEach(res => {
+                        
+                        for (const [question, resp] of Object.entries(res)) {
+                            const curr = document.createElement("div");
+                            curr.innerHTML += question;
+                            const cls = ['p-3', 'text-light', 'mb-3'];
+                            curr.classList.add(...cls);
+
+                            if (resp === 'not answered') {
+                                curr.innerHTML += '- not answered';
+                                curr.classList.add('bg-danger');
+                            }
+                            else {
+                                const answer = resp['answered'];
+                                const correct = resp['correct_answer'];
+
+                                if (answer == correct) {
+                                    curr.classList.add('bg-success');
+                                    curr.innerHTML += ` answered: ${answer}`;
+                                }
+                                else {
+                                    curr.classList.add('bg-danger')
+                                    curr.innerHTML += ` | correct answer: ${correct}`;
+                                    curr.innerHTML += ` | answered: ${answer}`;
+                                }
+                            }
+                            resDiv.append(curr);
+                        }
+                    })
+
+
+                },
+                error: function (error) {
+                    alert('hi');
+                    console.log(error);
+                }
+            });
+        };
+
+        quizForm.addEventListener('submit', e => {
+           
+            e.preventDefault();
+            sendData();
+        });
+    </script>
+</body>
+
+{% endblock %}

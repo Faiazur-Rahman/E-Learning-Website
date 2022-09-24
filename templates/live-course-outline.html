@@ -1,0 +1,235 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block content %}
+
+{% include 'navbar.html'%}
+<link rel="stylesheet" href="{% static '/course-outline.css' %}" />
+<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+
+
+<body class="course-outline">
+  <section class="hero">
+    <div class="hero-background"></div>
+    <div class="container">
+      <div class="hero-title">
+        <h1>{{course.live_course_name}}</h1>
+        <p>Live Course</p>
+      </div>
+      <div class="hero-card">
+        <img src="/media/{{course.image}}"  width="400" height="300" class="hero-card-image" />
+        <div class="hero-card-detailes">
+          <h3 class="hero-card-detailes-title">Course Description</h3>
+          <div class="hero-card-detailes-description">
+          </div>
+          {% if user.is_authenticated and active == 1 %}
+
+          <a href="#" class="btn btn-warning" style="background-color: green;">
+            Continue
+          </a>
+          {%elif user.is_authenticated and pending == 1%}
+          <a href="#" class="btn btn-warning" style="background-color: orange;">
+            Pending
+          </a>
+          {%elif user.is_authenticated%}
+          <button style="padding:10px 20px;" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Enroll</button>
+
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Payment</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+                <form action="{% url 'liveCourse-user-registered' course.pk %}" method="POST">
+                  {% csrf_token %}
+                  <div class="modal-body">
+                    <p>Purchase the course to Enroll</p>
+                    <div class="container-fluid" style="margin-bottom: 15px;background-color: rgb(252, 166, 166);">
+                      <div style="padding-top: 10px; padding-bottom:3px;">
+                        To Purchase the product you need to consider the following rules
+                        <ul>
+                          <li>
+                            Make a send money of 1000 BDT to 01997151180 number.
+                          </li>
+                          <li>
+                            And after that put the transection id into the text box below.
+                          </li>
+                          <li>
+                            You will be notified via mail after the request is being accepted.
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    Enter your transection id.
+                    <input style="border: 1.5px solid #000000;" class="form-control" placeholder="Enter here" name="transection_id_template" required>
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-primary" style="margin-right:5px;padding:10px 20px;background-color: rgb(15, 176, 15)"
+                      >Submit</button>
+                    
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+          {%else%}
+          <a href="{% url 'login' %}" class="btn btn-warning" style="background-color: green;">
+            Login to Enroll
+          </a>
+          {%endif%}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="course-overview">
+    <div class="container">
+      <div class="course-overview-wrapper">
+        <div class="course-img">
+          <img src="https://picsum.photos/210/310" class="hero-card-image" />
+        </div>
+        <div class="course-overview-p">
+          <h1 class="course-overview-title">Course Overview</h1>
+          <div class="course-overview-description">
+            This workshop shall guide you to enhance your problem-solving
+            skills that will eventually lead you to crack any interview you
+            sit for. In a span of 21 days you would be well acquainted with
+            DSA and you will be able to use DSA to do problem solving.
+            Irrespective of any stage in your coding career, this workshop
+            aims to prepare you for your upcoming interviews by building up on
+            your foundation & structuring your learning. Students studying in
+            their second, third or fourth year of college & young working
+            professionals shall benefit greatly from previous interview
+            experiences, all the basic to advanced DSA concepts & an optimized
+            approach to solve questions. With the objective of boosting your
+            skills, this free workshop seeks to provide a high quality
+            interview preparation experience with industry experts that would
+            aid you in progressing your career the way you want to.
+            <br />
+            <br />
+            <a
+              href="https://practice.geeksforgeeks.org/courses/course-sid?utm_source=practice&utm_medium=course_list&utm_campaign=PRACTICE_ALL_COURSES_PAGE&fbclid=IwAR3rqK24lR2qALzV4b-gmIxr5jVh8FxaTdQk3jBrp3sZ4sWVuV8XT--f1V0">
+              Attend this master session to learn more.</a>
+          </div>
+        </div>
+      </div>
+      <div class="course-overview-wrapper reverse">
+        <div class="course-overview-p">
+          <h2 class="course-overview-title">What you will learn</h2>
+          <ul class="course-overview-description">
+            <li>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque,
+              blanditiis.
+            </li>
+            <li>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Similique soluta modi ipsa?
+            </li>
+            <li>Lorem ipsum dolor sit amet consectetur.</li>
+          </ul>
+        </div>
+        <div class="course-img">
+          <img src="https://picsum.photos/210/210" class="hero-card-image" />
+        </div>
+      </div>
+
+      <div class="maindiv">
+        <h2 class="Course-Instructor-title">Course Instructor</h2>
+        <div class="Course-Instructor-img">
+          <img src="https://picsum.photos/210/210" />
+        </div>
+
+        <div class="Course-Instructor-description">
+          <h1 class="name"><b>Siddhartha Hazra</b></h1>
+          <b>Mentor at GeeksforGeeks</b><br />
+          Siddhartha Hazra is an accomplished competitive programmer with
+          great teaching skills. He is 5 star rated at CodeChef and expert in
+          codeforces. Siddhartha has been part of ACM - ICPC Regionalist 2020.
+          He has solved more than 2000+ problems across all platforms. Demo
+          Video Associated Batches : Session by Sid
+        </div>
+      </div>
+
+      <div class="Pricing">
+        <ul class="price">
+          <li class="header">Pricing</li>
+          <li class="grey">$0</li>
+          <li class="grey">
+            <a href="#" class="button">Login to Register</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq">
+    <div class="container-faq">
+      <h2 class="title">Frequently Asked Questions</h2>
+
+      <div class="accordion">
+        <div class="accordion-item">
+          <a>What can JavaScript Do?</a>
+          <div class="content">
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Eligendi corrupti quidem sed deleniti unde error dolorem
+              accusamus labore harum neque facere tenetur excepturi, maiores
+              culpa optio fugit vel molestias libero?
+            </p>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <a>How JavaScript Can Modify HTML and CSS Values?</a>
+          <div class="content">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Elementum sagittis vitae et leo duis ut. Ut tortor pretium
+              viverra suspendisse potenti.
+            </p>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <a>What Is SVG?</a>
+          <div class="content">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Elementum sagittis vitae et leo duis ut. Ut tortor pretium
+              viverra suspendisse potenti.
+            </p>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <a>Is FAQ Section Matters In Website?</a>
+          <div class="content">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Elementum sagittis vitae et leo duis ut. Ut tortor pretium
+              viverra suspendisse potenti.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script>
+    const items = document.querySelectorAll(".accordion a");
+    function toggleAccordion() {
+      this.classList.toggle("active");
+      this.nextElementSibling.classList.toggle("active");
+    }
+
+    items.forEach((item) => item.addEventListener("click", toggleAccordion));
+  </script>
+</body>
+
+{% endblock %}

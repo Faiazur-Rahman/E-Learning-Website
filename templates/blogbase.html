@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="https://glitch.com/favicon.ico" />
+    <title>KrishiBari</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <!-- Meta tags for SEO and social sharing -->
+    <meta name="description" content="This is Krishi Bari website" />
+    <meta name="robots" content="index,follow" />
+    <meta property="og:title" content="Krishi Bari" />
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
+    <!-- Import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/static/blog-style.css" />
+</head>
+
+<body>
+    
+    <!-- [ Pre-loader ] start -->
+
+
+    <!-- Top Bar -->
+
+    <!-- SideBar -->
+
+    <div class="wrapper">
+        {%include 'navbar.html'%}
+        {% include 'blogsidebar.html' %}
+        <div class="main_content" style="padding-top: 50px;">
+            {% block content %}{% endblock content %}
+            {%include 'footer.html'%}
+        </div>
+        
+    </div>
+
+    
+    <!-- {% include 'subadmintemplates/includes/scripts.html' %} -->
+
+    <!-- Specific Page JS goes HERE  -->
+    {% block js %}{% endblock js %}
+
+</body>
+
+</html>

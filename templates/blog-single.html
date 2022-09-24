@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+  {%include 'navbar.html'%}
+  <!--  আসো খেলি  -->
+  <body>
+    
+    <section class="blog">
+      <div class="container">
+        <div class="blog-title">
+          <h1 class="text-center">
+            {{blog.title}}
+          </h1>
+          <img
+            class="blog-image"
+            src="/media/{{blog.blog_image}}"
+            alt="blog-item-pic"
+          />
+          <div class="blog-post-image">
+            <span class="blog-post-image-tag"
+              ><a href="blog-single.html">TAG</a></span
+            >
+            <span>12-06-2022</span>
+            <span>{{blog.auther.name}}</span>
+          </div>
+          <div class="blog-detail" style="font-size: 17px;">
+            {{blog.the_blog|safe}}
+          </div>
+        </div>
+      </div>
+    </section>
+    {% include 'footer.html'%}
+    <style>
+      .ajaira {
+        background-color: rgb(38, 73, 44);
+        color: white;
+        padding: 25px 0px;
+        text-align: center;
+        font-size: 25px;
+      }
+      .blog {
+        padding: 50px 0 100px;
+        background-color: rgb(245, 245, 245);
+      }
+      .blog-title {
+        margin-bottom: 40px;
+      }
+      .blog-title > h1 {
+        margin-bottom: 30px;
+        font-size: 40px;
+        font-weight: bold;
+      }
+      .blog-image {
+        border-radius: 20px;
+        width: 100%;
+        height: 500px;
+        object-fit: cover;
+      }
+      .blog-post-image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 15px 0px;
+        font-size: 25px;
+      }
+      .blog-post-image-tag {
+        padding: 5px;
+        border-radius: 30px;
+      }
+      .blog-post-image > span {
+        margin: 0px 15px;
+      }
+      .blog-post-image-tag > a {
+        color: rgb(37, 211, 37);
+      }
+      .blog-detail > img {
+        border-radius: 10px;
+        display: block;
+        margin: 0 auto;
+      }
+    </style>
+  </body>
+</html>

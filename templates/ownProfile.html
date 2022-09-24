@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  {% include 'navbar.html'%}
+  <!--  আসো খেলি  -->
+  <body>
+    <section class="profile">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-5 col-md-4 outer-wrapper">
+            <aside class="profile-sidebar">
+              <img
+                src="/media/{{user.profile_pic}}"
+                alt="Profile-pic"
+                class="profile-picture"
+              />
+              <h1 class="profile-name">{{user.name}}</h1>
+
+              <ul class="profile-menu profile-list">
+                <li class="menu-btn" onclick="showInfo()">
+                  <img
+                    src="https://cdn.glitch.global/d460ee6e-a093-47dc-af7a-cb55f397556a/information.svg?v=1655156488439"
+                    class="menu-logo"
+                    alt="menu-logo"
+                  />
+                  <div class="menu-title">Dashboard</div>
+                </li>
+                <li class="menu-btn" onclick="showEdit()">
+                  <img
+                    src="https://cdn.glitch.global/d460ee6e-a093-47dc-af7a-cb55f397556a/profile.svg?v=1655156481126"
+                    class="menu-logo"
+                    alt="menu-logo"
+                  />
+                  <div class="menu-title">Edit Profile</div>
+                </li>
+                <li class="menu-btn" onclick="showCource()">
+                  <img
+                    src="https://cdn.glitch.global/d460ee6e-a093-47dc-af7a-cb55f397556a/cources.svg?v=1655156508121"
+                    class="menu-logo"
+                    alt="menu-logo"
+                  />
+                  <div class="menu-title">My Courses</div>
+                </li>
+                <li class="menu-btn" onclick="showCertificate()">
+                  <img
+                    src="https://cdn.glitch.global/d460ee6e-a093-47dc-af7a-cb55f397556a/certificate.svg?v=1655156517873"
+                    class="menu-logo"
+                    alt="menu-logo"
+                  />
+                  <div class="menu-title">Certificate</div>
+                </li>
+                <li class="menu-btn">
+                  <img
+                    src="https://cdn.glitch.global/d460ee6e-a093-47dc-af7a-cb55f397556a/exit.svg?v=1655156500256"
+                    class="menu-logo"
+                    alt="menu-logo"
+                  />
+                  <div class="menu-title">Sign Out</div>
+                </li>
+              </ul>
+            </aside>
+          </div>
+          <div class="col-sm-7 col-md-8 outer-wrapper">
+            <div class="profile-detail">
+              <div class="profile-breadcrumb">
+                Profile /
+                <div id="menuName">Dashboard</div>
+              </div>
+              <div class="profile-detail-item">
+                <ul id="profileInfo" class="profile-list profile-item">
+                  <li>Total Course: <b>69</b></li>
+                  <li>Completed Course: <b>42</b></li>
+                  <li>Collected Certificate: <b>40</b></li>
+                </ul>
+                <ul id="profileEdit" class="d-none profile-list profile-item " >
+                  <form action="/">
+                    <label for="name">Name: </label>
+                    <input
+                      class="update-input"
+                      type="text"
+                      name="name"
+                      value="Atritra Ghosh"
+                    />
+                    <label for="address">Address: </label>
+                    <input
+                      class="update-input"
+                      type="text"
+                      name="address"
+                      value="Kalia,Narail"
+                    />
+                    <label for="b_date">Birth Date: </label>
+                    <input class="update-input" type="date" name="b_date" />
+                    <label for="profile-image">Profile Image: </label>
+                    <input
+                      class="update-input update-image"
+                      type="file"
+                      accept="image/png, image/jpeg"
+                      name="profile-image"
+                    />
+                    <label for="password">Password: </label>
+                    <input
+                      class="update-input"
+                      type="password"
+                      name="password"
+                    />
+                    <input class="update-btn" type="submit" value="Update" />
+                  </form>
+                </ul>
+                <ul id="profileCource" class="profile-list profile-item d-none">
+                  <li>
+                    <img
+                      src="https://cdn.glitch.global/7c008862-d0ca-4f54-b139-46d0b5298ac6/Lyofood_strawberries_plantation.jpg?v=1655041921430"
+                      alt="cource-pic"
+                    />
+                    <a href="#" class="cource-title">
+                      Do you want to begin growing strawberries?
+                    </a>
+                  </li>
+                  <li>
+                    <img
+                      src="https://cdn.glitch.global/8cb7da3d-7c24-462d-8bfb-d89e514eba89/thumbnails_oyster-mushroom-1296x728-header.jpg?v=1655187408713"
+                      alt="cource-pic"
+                    />
+                    <a href="#" class="cource-title">
+                      Six Steps to Mushroom Farming
+                    </a>
+                  </li>
+                  <li>
+                    <img
+                      src="https://cdn.glitch.global/8cb7da3d-7c24-462d-8bfb-d89e514eba89/thumbnails_08261597-857b-46fa-b5b9-e0b45f184fa9.jpg?v=1655187422863"
+                      alt="cource-pic"
+                    />
+                    <a href="#" class="cource-title">
+                      Dragon Fruits Cultivation
+                    </a>
+                  </li>
+                </ul>
+                <ul
+                  id="profileCertificate"
+                  class="profile-list profile-item d-none"
+                >
+                  <li>
+                    <div class="cource-title"></div>
+                    <a href="#" class="certificate-status"
+                      ><img
+                        class="certificate-status-icon"
+                        src="https://cdn.glitch.global/d460ee6e-a093-47dc-af7a-cb55f397556a/add.svg?v=1655156536714"
+                        alt="add-icon"
+                      />
+                      <div class="certificate-status-title">
+                        Request For Certificate
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <img
+                      src="https://cdn.glitch.global/7c008862-d0ca-4f54-b139-46d0b5298ac6/Lyofood_strawberries_plantation.jpg?v=1655041921430"
+                      alt="cource-pic"
+                    />
+                    <div class="cource-title">Aritra Ghosh</div>
+                    <a href="#" class="certificate-status">
+                      <div class="certificate-status-title">
+                        Certificate Approved
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    {% include 'footer.html'%}
+    <style>
+      .ajaira {
+        background-color: rgb(38, 73, 44);
+        color: white;
+        padding: 25px 0px;
+        text-align: center;
+        font-size: 25px;
+      }
+      .profile {
+        padding: 0 0 20px;
+        background-color: rgb(245, 245, 245);
+      }
+      .profile-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .outer-wrapper {
+        padding: 0px;
+      }
+      .profile-sidebar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        background-color: rgb(37, 211, 37);
+        background-color: rgb(38, 73, 44);
+        color: white;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+
+        padding: 80px 30px 50px;
+        border-radius: 0 0 8px 8px;
+      }
+      #menuName {
+        display: inline;
+      }
+      .profile-menu {
+        width: 100%;
+        text-align: center;
+      }
+      .menu-btn {
+        width: 100%;
+
+        padding: 10px 25px;
+        border-radius: 10px;
+
+        display: flex;
+        align-items: center;
+      }
+      .menu-logo {
+        height: 24px;
+        margin-right: 15px;
+        filter: invert(100%);
+      }
+      .menu-title {
+        font-size: 22px;
+      }
+
+      .menu-btn:hover {
+        background-color: rgb(74, 126, 100);
+        cursor: pointer;
+      }
+      .profile-picture {
+        border-radius: 100%;
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+      }
+      .profile-name {
+        margin-bottom: 30px;
+
+        font-size: 35px;
+        font-weight: bold;
+      }
+      .profile-detail {
+        padding: 20px 20px 0px;
+      }
+      .profile-breadcrumb {
+        background-color: white;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+
+        padding: 20px 30px;
+        border-radius: 5px;
+      }
+      .profile-detail-item {
+        margin: 10px 0 0px;
+        padding: 20px 30px;
+        border-radius: 5px;
+
+        background-color: white;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+      }
+      .profile-list {
+        font-size: 20px;
+      }
+      #profileInfo {
+        display: inline-flex;
+        flex-wrap: wrap;
+      }
+      #profileInfo > li {
+        width: 250px;
+        margin: 20px 20px;
+        padding: 40px 40px;
+
+        font-size: 30px;
+
+        border-radius: 10px;
+        background-color: rgb(193, 247, 149);
+      }
+      #profileEdit > form {
+        width: 100%;
+        padding-bottom: 20px;
+      }
+      label {
+        width: 100%;
+        margin: 10px 0px 5px;
+      }
+      input {
+        border-radius: 10px;
+      }
+      .update-input {
+        width: 100%;
+        padding: 10px 20px;
+      }
+      .update-image {
+        display: block;
+        border: solid black 2px;
+        padding: 10px 20px;
+      }
+      .update-btn {
+        display: block;
+        border: none;
+
+        margin: 30px 0px 0px;
+        padding: 10px 20px;
+
+        color: white;
+        background-color: rgb(37, 211, 37);
+      }
+      .update-btn:hover {
+        background-color: rgb(38, 73, 44);
+      }
+      #profileCource {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      #profileCource > li {
+        width: 300px;
+        margin: 10px;
+        overflow: hidden;
+
+        border-radius: 10px;
+        background-color: rgb(193, 247, 149);
+      }
+      #profileCource > li > img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+      }
+      .cource-title {
+        display: block;
+        padding: 15px 20px 10px;
+        color: black;
+      }
+      #profileCertificate {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      #profileCertificate > li {
+        width: 300px;
+        margin: 10px;
+        overflow: hidden;
+
+        border-radius: 10px;
+        background-color: rgb(193, 247, 149);
+      }
+      #profileCertificate > li > img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+      }
+      .certificate-status {
+        padding: 10px 15px 10px;
+        display: flex;
+        align-items: center;
+      }
+      .certificate-status-icon {
+        height: 24px;
+        margin-right: 5px;
+      }
+      .certificate-status-title {
+        font-size: 22px;
+        color: black;
+      }
+    </style>
+    <script>
+      const allItem = Array.from(
+        document.getElementsByClassName("profile-item")
+      );
+      const menuName = document.getElementById("menuName");
+
+      //For Info
+      const showInfo = () => {
+        const me = document.getElementById("profileInfo");
+
+        allItem.forEach((x) => {
+          x.classList.add("d-none");
+        });
+        me.classList.remove("d-none");
+        menuName.innerHTML = "Dashboard";
+      };
+
+      //For Edit
+      const showEdit = () => {
+        const me = document.getElementById("profileEdit");
+        
+        allItem.forEach((x) => {
+          x.classList.add("d-none");
+        });
+        me.classList.remove("d-none");
+        menuName.innerHTML = "Edit Profile";
+      };
+
+      //For Cource
+      const showCource = () => {
+        const me = document.getElementById("profileCource");
+
+        allItem.forEach((x) => {
+          x.classList.add("d-none");
+        });
+        me.classList.remove("d-none");
+        menuName.innerHTML = "My Courses";
+      };
+
+      //For Edit
+      const showCertificate = () => {
+        const me = document.getElementById("profileCertificate");
+
+        allItem.forEach((x) => {
+          x.classList.add("d-none");
+        });
+        me.classList.remove("d-none");
+        menuName.innerHTML = "Certificate";
+      };
+    </script>
+  </body>
+</html>

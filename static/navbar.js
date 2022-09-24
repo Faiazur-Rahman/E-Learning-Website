@@ -11,7 +11,7 @@ $(document).on("scroll", function(){
     Logo.style.width = '100px';
     document.getElementById("profile-logo").style.height = '30px';
     document.getElementById("profile-logo").style.width = '30px';
-    document.getElementById("pr-lgoli").style.paddingTop = '0px';
+    document.getElementById("pr-lgoli").style.paddingTop = '5px';
     //Logo.style.paddingLeft='10px';
   } else {
     Logo.style.height = '60px';

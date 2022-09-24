@@ -1,0 +1,49 @@
+{% extends 'base.html'%}
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+{% include 'navbar.html'%}
+
+<body>
+    <div class="container" style="padding-top: 50px;padding-bottom:50px;">
+        <h2>{{qus.title}}</h2>
+        <p class="text-muted">By
+            {{qus.auther.name}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Asked
+            {{qus.timestamp|naturaltime}}</p>
+        <p style="font-size: 20px; width: 600px;">
+            {{qus.question|safe}}
+        </p>
+        <br>
+        <br>
+        <div style="background-color: white;">
+            <div class="container-fluid" style="padding-top: 20px;">
+        <h4>Total answers : {{qus.get_answer_count}}</h4>
+        <hr>
+        {% if answers %}
+        {% for ans in answers %}
+        
+        <div class="d-flex flex-row align-items-center commented-user">
+            <h5 class="mr-2">{{ans.auther.name}}</h5><span class="dot mb-1"></span>
+            <span class="badge badge-secondary">{{ ans.timestamp | naturaltime }}</span>
+        </div>
+        <div class="comment-text-sm"><span>{{ans.answer|safe}}</span></div>
+        {% endfor %}
+        {%else%}
+        <h3>No Answers</h3>
+        {%endif%}
+            </div>
+        </div>
+        <br> <br> <br>
+        <hr>
+        <form action="{% url 'write-an-answer' qusPk=qus.pk %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{write_answer_form.media}}
+            {{write_answer_form.as_p}}
+            <input class="btn btn-primary" type="submit" value="Submit">
+        </form>
+    </div>
+    {% include 'footer.html'%}
+    <script src="{% static 'script.js' %}"></script>
+</body>
+{% endblock %}

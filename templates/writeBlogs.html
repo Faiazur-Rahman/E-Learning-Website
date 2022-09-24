@@ -1,0 +1,81 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+   
+
+<!--  আসো খেলি  -->
+{% include 'navbar.html'%}
+<body>
+    <div class="topnav">
+
+        <!-- Centered link -->
+        
+        <div>
+          <a href="{% url 'blogs' %}" >Home</a>
+        </div>
+        
+        <!-- Left-aligned links (default) -->
+        <div ><a href="{% url 'write-a-blog' %}" class="active">Write</a></div>
+        <div >
+        <a href="{% url 'my-blogs' %}">My Blogs</a>
+        </div>
+        
+        <!-- Right-aligned links -->
+        <div >
+          <a href="{% url 'bookmarked-blogs' %}">Bookmarked</a></div>
+        <div>
+          <a href="#">Following</a>
+        </div>
+        
+      </div>
+<div class="container" style="padding-left: 0px; padding-top:50px; margin-bottom:50px;">
+    <div class="card" style="width: 900px;">
+        <div class="card-body">
+            <div class="container-fluid">
+                <h5 class="card-title">Write a Blog</h5>
+                <form action="write-a-blog" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    {{ form.media }}
+                    {{ form.as_p }}
+
+                    <input class="btn btn-primary" type="submit" value="Preview">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'footer.html'%}
+<style>
+    .topnav {
+        margin-top: 59px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        background-color: #333;
+      }
+      
+      .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+      }
+      
+      .topnav a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+      
+      .topnav a.active {
+        background-color: #04AA6D;
+        color: white;
+      }
+</style>
+</body>

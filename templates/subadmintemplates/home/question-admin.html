@@ -1,0 +1,84 @@
+{% extends "subadmintemplates/layouts/base.html" %}
+
+{% block title %} Questions {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="static/subadminstatic/assets/plugins/chart-morris/css/morris.css">
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="col-xl-10 col-md-6" style="padding-top: 50px;padding-left:50px">
+    <div class="card Recent-Users">
+        <div class="card-header">
+            <h5>Approve questions</h5>
+        </div>
+        <div class="card-block px-0 py-3">
+            <div class="table-responsive question">
+                <table class="table table-hover">
+                    <thead class="thead-light">
+                        <tr class="unread">
+                            <!-- <td><img class="rounded-circle" style="width:40px;" src="/static/assets/images/user/avatar-1.jpg" alt="activity-user"></td> -->
+                        
+                                <th scope="col" style="padding-left: 20px;">Questions</th>
+                                <!-- <p class="m-0">Lorem Ipsum is simply…</p> -->
+                            
+                                
+                                <!-- <p class="m-0">Lorem Ipsum is simply…</p> -->
+                            
+                                <th scope="col" style="padding-left: 60px;">Action</th>
+                
+                            <!-- <td><a href="#!" class="label theme-bg2 text-white f-12">Deactivate</a><a href="#!" class="label theme-bg text-white f-12">Remove</a></td> -->
+                        </tr>
+                    </thead>
+                    <tbody class="">
+                        {% for x in all %}
+                            <tr class="unread">
+                                <!-- <td><img class="rounded-circle" style="width:40px;" src="/static/assets/images/user/avatar-1.jpg" alt="activity-user"></td> -->
+                                <td>
+                                    <a href="{% url 'view-question' x.pk %}" ><h6 class="mb-1" style="padding-left: 10px;">{{x.title}}</h6></a>
+                                    <!-- <p class="m-0">Lorem Ipsum is simply…</p> -->
+                                </td>
+                                <td><a style="cursor: pointer;" data-cid="{{x.id}}" class="label theme-bg2 text-white f-12" >Approve</a>
+                                    <a href="#!" class="label theme-bg text-white f-12">Delete</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script>
+    $('.question').on("click",".label",function(){
+        let id=$(this).attr("data-cid");
+        mydata={cid:id , 'csrfmiddlewaretoken': '{{ csrf_token }}' };
+        mythis=this;
+        $.ajax({
+            url:"{% url 'approve-question'%}",
+            method:"POST",
+            data: mydata,
+            'dataType': 'json',
+            success: function(data){
+                if(data.status==1){
+                    $(mythis).closest("tr").fadeOut();
+                }
+            }
+        });
+    })
+</script>
+    <script src="/static/assets/plugins/chart-morris/js/raphael.min.js"></script>
+    <script src="/static/assets/plugins/chart-morris/js/morris.min.js"></script>
+    <script src="/static/assets/js/pages/chart-morris-custom.js"></script>
+
+{% endblock javascripts %}

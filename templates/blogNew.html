@@ -1,0 +1,336 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+   
+
+<!--  আসো খেলি  -->
+{% include 'navbar.html'%}
+<body>
+    
+    <div class="topnav">
+
+        <!-- Centered link -->
+        
+        <div>
+          <a href="#home" class="active">Home</a>
+        </div>
+        
+        <!-- Left-aligned links (default) -->
+        <div><a href="{% url 'write-a-blog' %}">Write</a></div>
+        <div >
+        <a href="{% url 'my-blogs' %}">My Blogs</a>
+        </div>
+        
+        <!-- Right-aligned links -->
+        <div >
+          <a href="{% url 'bookmarked-blogs' %}">Bookmarked</a></div>
+        <div>
+          <a href="#">Following</a>
+        </div>
+        
+      </div>
+    <section class="blog" style="padding-top: 100px;">
+        
+        <div class="container">
+            <div class="blog-title">
+                <h1 class="text-center">Krishi Bari/Blog</h1>
+            </div>
+            <div class="blog-search">
+                <form id="search-blog-form">
+                    {% csrf_token %}
+                    <input name='search-blog-text' type="text" />
+                    <input class="blog-btn" type="submit" value="Search" />
+                </form>
+            </div>
+            <div class="row blog-feature">
+                <div class="col-md-8">
+                    <div class="blog-feature-image">
+                        <img src="https://cdn.glitch.global/7c008862-d0ca-4f54-b139-46d0b5298ac6/oyster-mushroom-1296x728-header.jpg?v=1654962394398"
+                            alt="blog-item-pic" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="blog-feature-text">
+                        <h2 class="blog-card-text-title">
+                            <a href="/blog-single.html">
+                                <h2 style="font-size:25px;">
+                                Mushroom Anatomy: A Deep Dive Into the Parts of a Mushroom
+                                </h2>
+                            </a>
+                        </h2>
+                        <div class="blog-card-text-tags">
+                            <span class="blog-card-text-tag"><a style="font-size: 15px;" href="blog-single.html">TAG</a></span>
+                            <span class="blog-card-text-name" style="font-size: 18px;">Aritra Kumar Ghosh</span>
+                        </div>
+                        <p style="font-size: 13px;">
+                            Describing mushroom anatomy is not always easy because there are
+                            so many unique types of mushrooms. Mushrooms are not a plant or
+                            an animal, but a species all their own that belongs to the fungi
+                            kingdom. We know they’re living, so they need to consume energy
+                            and reproduce, but how does their anatomy allow them to do it?
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for blog in blogs%}
+                <div class="col-md-6 col-lg-4 ">
+                    <div class="blog-card">
+                        <div class="blog-card-image">
+                            <img src="/media/{{blog.blog_image}}" alt="blog-item-pic" />
+                        </div>
+                        <div class="blog-card-text" style="padding-top: 10px;">
+                            <h3 style="font-size:22px;" class="blog-card-text-title">
+                                <a href="{% url 'blog-single' blog.pk %}">{{blog.title}}
+                                </a>
+                            </h3>
+                            <div class="blog-card-text-tags">
+                                <span class="blog-card-text-tag"><a
+                                        href="{% url 'blog-single' blog.pk %}" style="font-size: 15px;">TAG</a></span>
+                                <span class="blog-card-text-name" style="font-size: 18px;">{{blog.auther.name}}</span>
+                            </div>
+                            <p style="font-size: 13px;">
+                                {{blog.blog_overview}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+    {% include 'footer.html'%}
+    <script>
+        const searchForm=document.getElementById('search-blog-form');
+
+        const sendData = () => {
+            $.ajax({
+                
+                type: 'POST',
+                url: "{% url 'searchBlogs' %}",
+                data:{
+                    searched: $('#search-blog-text').val(),
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                },
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function (error) {
+                    alert('error');
+                    console.log(error);
+                }
+            });
+        };
+
+        searchForm.addEventListener('submit', e=>{
+            sendData();
+        });
+    </script>
+    <style>
+        .topnav {
+            margin-top: 59px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background-color: #333;
+          }
+          
+          .topnav a {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+          }
+          
+          .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+          }
+          
+          .topnav a.active {
+            background-color: #04AA6D;
+            color: white;
+          }
+          
+          
+          
+          /* Responsive navigation menu (for mobile devices) */
+         
+        .ajaira {
+            background-color: rgb(38, 73, 44);
+            color: white;
+            padding: 25px 0px;
+            text-align: center;
+            font-size: 25px;
+        }
+
+        .blog {
+            padding: 50px 0 100px;
+            background-color: rgb(245, 245, 245);
+        }
+
+        .blog-search {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+
+        .blog-search>form>input {
+            padding: 10px;
+            font-size: 20px;
+            border-color: rgb(5, 226, 5);
+            border-radius: 10px;
+        }
+
+        .blog-more {
+            margin: 20px 0px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .blog-btn {
+            color: white;
+            background-color: rgb(37, 211, 37);
+
+            border: none;
+            border-radius: 40px;
+
+            padding: 15px 30px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .blog-btn:hover {
+            text-decoration: none;
+            color: black;
+            cursor: pointer;
+        }
+
+        .blog-title {
+            margin-bottom: 40px;
+        }
+
+        .blog-title>h1 {
+            margin-bottom: 30px;
+            font-size: 50px;
+            font-weight: bold;
+        }
+
+        .blog-feature {
+            overflow: hidden;
+            margin-bottom: 60px;
+        }
+
+        .blog-feature-image {
+            overflow: hidden;
+            border-radius: 20px 0 0 20px;
+        }
+
+        .blog-feature-image>img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transform-origin: 50% 50%;
+            transition: transform 0.5s, filter 0.5s ease-out;
+        }
+
+        .blog-feature-image:hover>img {
+            transform: scale(1.3);
+        }
+
+        .blog-feature-text {
+            margin: 60px 0px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .blog-card {
+            display: block;
+            overflow: hidden;
+
+            background-color: white;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+
+            margin: 15px 0px;
+            border-radius: 15px;
+            height: 500px;
+        }
+
+        .blog-card-image {
+            overflow: hidden;
+        }
+
+        .blog-card-image>img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transform-origin: 50% 50%;
+            transition: transform 0.5s, filter 0.5s ease-out;
+        }
+
+        .blog-card:hover>.blog-card-image>img {
+            transform: scale(1.3);
+        }
+
+        .blog-card-text {
+            padding: 0 10px;
+            margin: auto 0;
+        }
+
+        .blog-card-text>h3 {
+            font-weight: bold;
+        }
+
+        .blog-card-text-title>a {
+            color: rgb(37, 211, 37);
+            text-decoration: none;
+        }
+
+        .blog-card-text-title>a:hover {
+            color: green;
+            text-decoration: none;
+        }
+
+        .blog-card-text-tags {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 10px 0px;
+        }
+
+        .blog-card-text-tag {
+            background-color: rgb(235, 245, 245);
+            padding: 5px;
+            border-radius: 30px;
+        }
+
+        .blog-card-text-tag>a {
+            color: rgb(37, 211, 37);
+        }
+
+        .blog-card-text-tag:hover {
+            background-color: rgb(225, 225, 225);
+        }
+        
+    </style>
+    <script>
+        const blogButton = () => {
+            const btn = Array.from(document.getElementsByClassName("hidden"));
+            btn.forEach((x) => {
+                x.classList.remove("hidden");
+            });
+            document.getElementById("blog-btn").classList.add("hidden");
+        };
+    </script>
+    <script src="{% static 'navbar.js' %}"></script>
+</body>
+
+</html>

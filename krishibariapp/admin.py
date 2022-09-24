@@ -4,17 +4,33 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
-from .models import Dbtable, allCourseVideos, coursesList, strawbarryVideoTable
-from .models import videoTable,allArticles,articleComment
+from krishibariapp.views import blogs
+
+from .models import *
+
 
 # Register your models here.
 
 
 admin.site.register(videoTable)
 admin.site.register(strawbarryVideoTable)
-admin.site.register(coursesList)
+admin.site.register(onlineCourseList)
 admin.site.register(allCourseVideos)
-admin.site.register((allArticles,articleComment))
+admin.site.register(
+    (
+        allArticles,articleComment,allBlogs,allquestion,onlineCourseStudents,
+        course_exam_result,course_exam,liveCourseList,liveCourseStudents,question_answer
+    )
+)
+
+class ExamAnswerInline(admin.TabularInline):
+    model=course_exam_answer
+
+class ExamQuestionAdmin(admin.ModelAdmin):
+    inlines= [ExamAnswerInline]
+
+admin.site.register(course_exam_question,ExamQuestionAdmin)
+admin.site.register(course_exam_answer)
 
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
